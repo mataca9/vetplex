@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 90 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g transform="matrix(1,0,0,1,-1205,-630)">
+        <g transform="matrix(0.866127,0,0,0.757734,-3095.54,-508.44)">
+            <g id="Calendário" transform="matrix(0.923652,0,0,1.26694,4675.45,922.851)">
+                <path d="M332.5,467.879L332.5,457.463L345,457.463L345,467.879L395,467.879L395,457.463L407.5,457.463L407.5,467.879L413.646,467.879C420.616,467.89 426.25,472.593 426.25,478.383L426.25,551.126C426.25,556.919 420.609,561.624 413.646,561.629L326.354,561.629C319.398,561.629 313.75,556.923 313.75,551.126L313.75,478.383C313.75,472.589 319.391,467.885 326.354,467.879L332.5,467.879ZM413.75,493.921L326.25,493.921L326.25,551.213L413.75,551.213L413.75,493.921Z" style="fill:rgb(230,230,230);"/>
+                <g transform="matrix(1.25,0,0,1.04167,-86.25,-3844.62)">
+                    <rect x="365" y="4185" width="25" height="25" style="fill:rgb(34,181,115);"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

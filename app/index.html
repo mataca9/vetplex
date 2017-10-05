@@ -1,0 +1,42 @@
+<html lang="en" ng-app="app" ng-controller="mainController">
+    <title>D-SAT Manager</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../bower_components/angular-toastr/dist/angular-toastr.min.css" />
+    <link rel="stylesheet" href="assets/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <!-- endbuild -->
+<body>   
+        
+	<article class="content">
+		<ng-view></ng-view>
+	</article>
+
+    <!-- build:js scripts/vendor.js -->
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.js"></script>
+    <script src="../bower_components/angular-aria/angular-aria.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script src="../bower_components/angular-toastr/dist/angular-toastr.tpls.min.js"></script>
+    <script src="../bower_components/angular-ui-mask/dist/mask.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:app scripts/app -->
+    <script src="./scripts/app.js"></script>
+    <script src="./scripts/app.route.js"></script>
+    <script src="./scripts/app.controller.js"></script>
+    <script src="./scripts/app.constants.js"></script>
+    <script src="./scripts/app.toastr.js"></script>
+    <!-- build:app scripts/directives -->
+    <script src="./scripts/directives/ng-enter.js"></script>
+    <!-- build:app scripts/filter -->
+    <!-- build:app scripts/services -->
+    <!-- build:app scripts/components -->
+    <script src="./scripts/components/home/homeController.js"></script>
+    <!-- endbuild -->
+</body>
+</html>

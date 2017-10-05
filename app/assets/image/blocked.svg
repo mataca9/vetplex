@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 80 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g transform="matrix(1,0,0,1,-1450,-811)">
+        <g transform="matrix(0.866127,0,0,0.757734,-3095.54,-508.44)">
+            <g id="Cadeado-fechado-amarelo" transform="matrix(0.240534,0,0,0.329931,5253.89,1741.3)">
+                <path d="M24,160L24,120C24,53.77 88.524,0 168,0C247.476,0 312,53.77 312,120L312,160L330.951,160C347.033,160.041 360,170.872 360,184.207L360,355.793C360,369.128 347.033,379.959 330.951,380L5.049,380C-10.984,380 -24,369.153 -24,355.793L-24,184.207C-24,170.872 -11.033,160.041 5.049,160L24,160ZM202.978,340L190.091,281.054C208.899,274.021 222,258.275 222,240C222,215.164 197.803,195 168,195C138.197,195 114,215.164 114,240C114,258.275 127.101,274.021 145.909,281.054L133.022,340L202.978,340ZM249.6,160L249.6,120C249.6,82.47 213.036,52 168,52C122.964,52 86.4,82.47 86.4,120L86.4,160L249.6,160Z" style="fill:rgb(242,175,13);fill-opacity:0.701961;"/>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 60 100" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g transform="matrix(1,0,0,1,-1210,-430)">
+        <g transform="matrix(0.866127,0,0,0.757734,-3095.54,-508.44)">
+            <g id="Bateria-alto" transform="matrix(0.923652,0,0,1.26694,4248.27,885.898)">
+                <g transform="matrix(1,0,0,1,22.5,-13.5417)">
+                    <path d="M816.25,291.838L816.25,302.254L826.669,302.254C831.271,302.254 835,305.364 835,309.197L835,389.062C835,392.895 831.271,396.004 826.669,396.004L768.331,396.004C763.729,396.004 760,392.895 760,389.062L760,309.197C760,305.376 763.704,302.275 768.331,302.254L778.75,302.254L778.75,291.838L816.25,291.838ZM822.5,312.671L772.5,312.671L772.5,385.588L822.5,385.588L822.5,312.671Z" style="fill:rgb(34,181,115);"/>
+                </g>
+                <g transform="matrix(1.56876,-7.61094e-13,0,-12.9172,369.342,78878.5)">
+                    <rect x="271.333" y="6077.67" width="31.872" height="5" style="fill:rgb(230,230,230);"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
