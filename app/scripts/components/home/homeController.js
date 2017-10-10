@@ -5,8 +5,7 @@
 
         
     function HomeController($scope, $rootScope, toastr, $timeout) {
-		$scope.message = "home";
-		$timeout(()=> { toastr.success('sucesso') },2000);
+		
     }
 
 })();
