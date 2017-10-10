@@ -1,3 +1,3 @@
 # vetplex
-´$ npm install connect serve-static´
-´$ node server.js´
+`$ npm install connect serve-static`
+`$ node server.js`
