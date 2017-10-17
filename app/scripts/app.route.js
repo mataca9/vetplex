@@ -23,6 +23,11 @@
                 controller: 'aboutController',
                 controllerAs: '_ctrl'
             })
+            .when('/register', {
+                templateUrl: _templateBase + '/components/register/register.html' ,
+                controller: 'registerController',
+                controllerAs: '_ctrl'
+            })
         $routeProvider.otherwise({ redirectTo: '/' });
     };
 
