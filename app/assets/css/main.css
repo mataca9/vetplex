@@ -1,4 +1,35 @@
 .cover{
-    display:flex;
-    justify-content: center;
+    width:800px;
+    height:430px;
+    margin:0 auto;
+    position:relative;
+    text-align: center;
+}
+
+.cover:after{
+    content:"";
+    width:800px;
+    height:430px;
+    background-image:url(/app/assets/image/cover.jpg);
+    filter:blur(5px);
+    position:absolute;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+.cover h1{
+    transform:translateY(80px);
+    font-weight: bold;
+    font-size:46px;
+}
+
+.cover p{
+    transform:translateY(200px);
+    font-size:20px;
+}
+
+#map {
+    height: 400px;
+    width: 100%;
 }
