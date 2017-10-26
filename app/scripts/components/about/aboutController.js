@@ -6,7 +6,6 @@
         
     function AboutController($scope, $rootScope, toastr, $timeout, firebaseService) {
 
-        firebaseService.addSomething();
 		
     }
 

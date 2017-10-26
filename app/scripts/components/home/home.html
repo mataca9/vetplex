@@ -6,25 +6,25 @@
     <h2>Busque profissionais</h2>
     <ul class="list-group">
         <li class="list-group-item">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="sel1">Serviço:</label>
-                            <select class="form-control" id="sel1">
-                                <option>Petshop</option>
-                                <option>Veterinário</option>
-                            </select>
-                        </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="sel1">Serviço:</label>
+                        <select class="form-control" ng-model="service" ng-change="loadMap()" id="sel1">
+                            <option ng-value="1">Petshop</option>
+                            <option ng-value="2">Veterinário</option>
+                        </select>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label for="sel1">Região:</label>
-                            <select class="form-control" id="sel1">
-                                <option></option>
-                                <option></option>
-                            </select>
-                        </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="sel1">Região:</label>
+                        <select class="form-control" id="sel1">
+                            <option></option>
+                            <option></option>
+                        </select>
                     </div>
+                </div>
             </div>
         </li>
         <li class="list-group-item list-group-item-info">
