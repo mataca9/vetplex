@@ -8,6 +8,7 @@
         $scope.map;
         $scope.geocoder;
 
+        // -- private functions
 		(function init(){
             initMap();
         })();
