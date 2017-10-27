@@ -5,32 +5,38 @@
                     <div class="panel panel-info">
                         <div class="panel-heading">Nova conta</div>
                         <div class="panel-body">
-                            <form class="form">
-                                <div class="form-group">
-                                    <label for="email">Nome:</label>
-                                    <input type="email" class="form-control" id="email">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sel1">Eu sou:</label>
-                                    <select class="form-control" id="sel1">
-                                        <option>Usuário</option>
-                                        <option>Petshop</option>
-                                        <option>Veterinário</option>
+                            <form name="registerForm" class="form">
+                                <div class="form-group" ng-class="{'error': registerForm.type.$invalid && registerForm.type.$dirty}">
+                                    <label>Eu sou:</label>
+                                    <select class="form-control" name="type" ng-model="register.type" ng-required="register.type != 0">
+                                        <option ng-value="''" selected>Selecione</option>
+                                        <option ng-value="'user'">Usuário</option>
+                                        <option ng-value="'professional'">Estabelecimento / Profissional</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
-                                    <label for="email">Email:</label>
-                                    <input type="email" class="form-control" id="email">
+                                <div ng-show="register.type" class="form-group" ng-class="{'error': registerForm.name.$invalid && registerForm.name.$dirty}">
+                                    <label ng-show="register.type == 'user'">Nome completo:</label>
+                                    <label ng-show="register.type == 'professional'">Razão social / Nome fantasia:</label>
+                                    <input type="text" class="form-control" ng-model="register.name" name="name" required />
                                 </div>
-                                <div class="form-group">
-                                    <label for="pwd">Senha:</label>
-                                    <input type="password" class="form-control" id="pwd">
+                                <div ng-show="register.type" class="form-group" ng-class="{'error': registerForm.doc.$invalid && registerForm.doc.$dirty}">
+                                    <label ng-show="register.type == 'user'">CPF:</label>
+                                    <label ng-show="register.type == 'professional'">CNPJ:</label>
+                                    <input type="text" class="form-control" ng-model="register.doc" name="doc" required />
                                 </div>
-                                <div class="form-group">
-                                    <label for="pwd">Confirme a sua senha:</label>
-                                    <input type="password" class="form-control" id="pwd">
+                                <div class="form-group" ng-class="{'error': registerForm.email.$invalid && registerForm.email.$dirty}">
+                                    <label>Email:</label>
+                                    <input type="email" class="form-control" ng-model="register.email" name="email" required />
                                 </div>
-                                <button ng-click="register()" class="btn btn-primary pull-right">Cadastrar</button>
+                                <div class="form-group" ng-class="{'error': registerForm.password.$invalid && registerForm.password.$dirty}">
+                                    <label>Senha:</label>
+                                    <input type="password" class="form-control" ng-model="register.password" name="password" required />
+                                </div>
+                                <div class="form-group" ng-class="{'error': (registerForm.password2.$invalid || register.password != register.password2) && registerForm.password2.$dirty }">
+                                    <label>Confirme sua senha:</label>
+                                    <input type="password" class="form-control" ng-model="register.password2" name="password2" required />
+                                </div>
+                                <button ng-disabled="registerForm.$invalid && register.password != register.password2" ng-click="register()" class="btn btn-primary pull-right">Cadastrar</button>
                             </form>
                         </div>
                     </div>
@@ -39,16 +45,16 @@
                 <div class="panel panel-success">
                     <div class="panel-heading">Já sou cadastrado</div>
                     <div class="panel-body">
-                        <form class="form">
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email">
+                        <form class="form" name="loginForm">
+                            <div class="form-group" ng-class="{'error': loginForm.email.$invalid && loginForm.email.$dirty}">
+                                <label>Email:</label>
+                                <input type="email" class="form-control" ng-model="login.email" name="email" required />
                             </div>
-                            <div class="form-group">
-                                <label for="pwd">Senha:</label>
-                                <input type="password" class="form-control" id="pwd">
+                            <div class="form-group" ng-class="{'error': loginForm.password.$invalid && loginForm.password.$dirty}">
+                                <label>Senha:</label>
+                                <input type="password" class="form-control" ng-model="login.password" name="password" required />
                             </div>
-                            <button ng-click="signIn()" class="btn btn-primary pull-right">Entrar</button>
+                            <button ng-disabled="loginForm.$invalid" ng-click="signIn()" class="btn btn-primary pull-right">Entrar</button>
                         </form>
                     </div>
                 </div>

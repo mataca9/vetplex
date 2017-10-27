@@ -7,6 +7,14 @@
     function RegisterController($scope, $rootScope, toastr, $timeout) {
         $scope.signIn = signIn;
         $scope.register = register;
+        $scope.login = { username:'', password:'' };
+        $scope.register = {
+            name:'',
+            email:'',
+            password:'',
+            doc:'',
+            type: ''
+        };
         
         // -- private functions
         function signIn(){
@@ -25,7 +33,7 @@
                 type: user.type
                 //others
             }
-            $rootScope.session = sessionStorage.setItem('vetplex-session', JSON.stringify($rootScope.session));
+            sessionStorage.setItem('vetplex-session', JSON.stringify($rootScope.session));
             $rootScope.go('/home');
         }
 

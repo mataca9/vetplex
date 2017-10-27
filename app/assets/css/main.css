@@ -17,6 +17,7 @@
     margin:0 auto;
     position:relative;
     text-align: center;
+    text-shadow: 0px 0px 20px #fff;
 }
 
 .cover:after{
@@ -79,4 +80,35 @@
     line-height: 50px;
     padding: 0;
     margin: 0;
+}
+
+.form-group.error input,
+.form-group.error select {
+    border-color:#FE4D4D;
+    background-color: #FFE4E4;
+}
+
+.list-group.appointments li span.info{
+    display:inline-block;
+    min-width:120px;
+    margin-left:10px;
+}
+
+.list-group.appointments li span.label{
+    margin-top:3px;
+    margin-right:10px;
+}
+
+.list-group.appointments li .tools{
+    display:inline-block;
+    float:right;
+    margin-top:2px;
+}
+
+.list-group.appointments li .tools .glyphicon{
+    cursor:pointer;
+}
+
+.btn .glyphicon{
+    font-size:12px;
 }

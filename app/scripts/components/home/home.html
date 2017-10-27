@@ -10,7 +10,8 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="sel1">Serviço:</label>
-                        <select class="form-control" ng-model="service" ng-change="loadMap()" id="sel1">
+                        <select class="form-control" ng-model="filter.service" ng-change="loadMap()" id="sel1">
+                            <option ng-value="0" selected>Selecione</option>
                             <option ng-value="1">Petshop</option>
                             <option ng-value="2">Veterinário</option>
                         </select>
@@ -19,9 +20,10 @@
                 <div class="col-sm-6">
                     <div class="form-group">
                         <label for="sel1">Região:</label>
-                        <select class="form-control" id="sel1">
-                            <option></option>
-                            <option></option>
+                        <select class="form-control" ng-model="filter.region" ng-change="loadMap()" id="sel2">
+                            <option ng-value="0" selected>Selecione</option>
+                            <option ng-value="'norte'">Norte</option>
+                            <option ng-value="'leste'">Leste</option>
                         </select>
                     </div>
                 </div>

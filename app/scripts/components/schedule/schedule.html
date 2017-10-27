@@ -1,0 +1,30 @@
+
+
+<h2>
+    Lista de agendamentos
+    <button class="btn btn-primary pull-right">
+        Novo
+        <span class="glyphicon glyphicon-plus"></span>
+    </button>
+</h2>
+<hr/>
+<ul class="list-group appointments" ng-if="session.type == 'professional'">
+    <li class="list-group-item" ng-repeat="schedule in scheduleList">
+        <span class="" ng-bind="schedule.service"></span>
+        <span class="" ng-bind="schedule.customer"></span>
+        <span class="" ng-bind="schedule.date"></span>
+        <span class="badge" ng-bind="schedule.status"></span>
+    </li>
+</ul>
+<ul class="list-group appointments" ng-if="session.type == 'user'">
+    <li class="list-group-item" ng-repeat="schedule in scheduleList">
+        <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="schedule.status"></span>
+        Serviço: <span class="info" ng-bind="schedule.service"></span>
+        Com: <span class="info" ng-bind="schedule.professional"></span>
+        Dia: <span class="info" ng-bind="schedule.date"></span>
+        Onde: <span class="info" ng-bind="schedule.place"></span>
+        <div class="tools">
+            <span title="Cancelar" class="glyphicon glyphicon-trash"><span>
+        </div>
+    </li>
+</ul>

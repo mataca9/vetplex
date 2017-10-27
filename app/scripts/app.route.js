@@ -28,6 +28,11 @@
                 controller: 'registerController',
                 controllerAs: '_ctrl'
             })
+            .when('/schedule', {
+                templateUrl: _templateBase + '/components/schedule/schedule.html' ,
+                controller: 'scheduleController',
+                controllerAs: '_ctrl'
+            })
             .when('/page:ID', {
                 templateUrl: _templateBase + '/components/page/page.html' ,
                 controller: 'pageController',

@@ -9,11 +9,16 @@
         $scope.geocoder;
         $scope.markers = [];
         $scope.loadMap = loadMap;
+        $scope.filter = {
+            service: 0,
+            region: 0
+        }
+        // Mock
         $scope.places = [
-            { name: 'Dog Health', address: 'Chafic joão scaf, 77', rating: 4, service:1},
-            { name: 'PetLovers', address: 'Jari, 551', rating: 5, service:1},
-            { name: 'Cat Dreams', address: 'Avenida Ipiranga, 7200', rating: 3, service:2},
-            { name: 'Zoo Life', address: 'Protasio Alves, 2000', rating: 2, service:2}             
+            { name: 'Dog Health', address: 'Chafic joão scaf, 77', rating: 4, service:1, region:"norte"},
+            { name: 'PetLovers', address: 'Jari, 551', rating: 5, service:2, region:"norte"},
+            { name: 'Cat Dreams', address: 'Avenida Ipiranga, 7200', rating: 3, service:2, region:"leste"},
+            { name: 'Zoo Life', address: 'Protasio Alves, 2000', rating: 2, service:1, region:"leste"}             
         ];
 
         // -- private functions
@@ -34,14 +39,13 @@
                     $scope.map.setCenter(results[0].geometry.location);
                 }
             });
-
-            addMarkers();
         }
 
         function addMarkers(filter) {
-            // mock data
-            $scope.places
-            let filtered = filter ? $scope.places.filter(p => p.service == filter) : $scope.places;
+            console.log(filter);
+            let filtered = $scope.places.filter(p =>
+                (filter.service == 0 || filter.service == p.service) && (filter.region == 0 || filter.region == p.region)
+            )
             filtered.forEach(p => {
                 $scope.geocoder.geocode( { 'address': p.address}, function(results, status) {
                     let content = `
@@ -79,7 +83,7 @@
 
         function loadMap(){
             clearMarkers();
-            addMarkers($scope.service);
+            addMarkers($scope.filter);
         }
 
         function clearMarkers(){

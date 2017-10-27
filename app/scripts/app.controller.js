@@ -9,6 +9,7 @@
         $rootScope.go = go;
         $rootScope.logout = logout;
         $rootScope.session;
+        $rootScope.activeMenu = 'home';
         
         // -- private functions
         (function init(){
@@ -19,7 +20,7 @@
                     logged: false
                 }
 
-                $rootScope.session = JSON.stringify(sessionStorage.setItem('vetplex-session', $rootScope.session));
+                sessionStorage.setItem('vetplex-session', JSON.stringify($rootScope.session));
             }
         })();
 
@@ -31,6 +32,7 @@
         }
 
         function go ( path ) {
+            $rootScope.activeMenu = path.split('/').pop();
             $location.path( path );
         };
     }
