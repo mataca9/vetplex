@@ -45,6 +45,10 @@
                     return 'label-default';
             }
         }
+
+        $scope.new = function (size, parentSelector) {
+            
+        };
     }
 
 })();
