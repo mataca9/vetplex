@@ -33,8 +33,8 @@ App
 │   ├── app.js
 │   ├── app.route.js
 │   └── app.toastr.js
-|── bower_components
-└── index.html
+├── index.html
+bower_components
 
 ```
 
