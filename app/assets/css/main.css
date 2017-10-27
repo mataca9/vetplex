@@ -1,3 +1,6 @@
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
 .wrapper{
     margin-top:50px;
     height:calc(100vh - 50px);
@@ -11,6 +14,46 @@
     width:1140px;
     padding: 0;
 }
+
+.navbar.navbar-default{
+    border-radius:0px;
+    position:fixed;
+    z-index:10;
+    width:100%;
+    top:0;
+}
+#navbar{
+    width:1140px;
+    margin:0 auto;
+    padding:0;
+}
+
+.navbar-nav .btn{
+    margin-top:8px;
+}
+
+.navbar-right {
+    margin-right: 0px;
+}
+
+.copyright{
+    text-align:center;
+    padding: 20px 0px;
+    font-size:10px;
+}
+
+.loggedIn{
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+    margin: 0;
+}
+
+.btn .glyphicon{
+    font-size:12px;
+}
+
+/*home*/
 
 .cover{
     width:800px;
@@ -49,44 +92,19 @@
     width: 100%;
 }
 
-.navbar.navbar-default{
-    border-radius:0px;
-    position:fixed;
-    z-index:10;
-    width:100%;
-    top:0;
-}
-#navbar{
-    width:1140px;
-    margin:0 auto;
-    padding:0;
-}
-
-.navbar-nav .btn{
-    margin-top:8px;
-}
-
-.navbar-right {
-    margin-right: 0px;
-}
-
-.copyright{
-    text-align:center;
-    padding: 20px 0px;
-    font-size:10px;
-}
-
-.loggedIn{
-    height: 50px;
-    line-height: 50px;
-    padding: 0;
-    margin: 0;
-}
+/*register*/
 
 .form-group.error input,
 .form-group.error select {
     border-color:#FE4D4D;
     background-color: #FFE4E4;
+}
+
+/*schedule*/
+.list-group.appointments li
+{
+    height: 60px;
+    line-height: 40px;
 }
 
 .list-group.appointments li span.info{
@@ -96,8 +114,10 @@
 }
 
 .list-group.appointments li span.label{
-    margin-top:3px;
     margin-right:10px;
+    width:75px;
+    display: inline-block;
+    transform: translateY(-2px);
 }
 
 .list-group.appointments li .tools{
@@ -108,8 +128,4 @@
 
 .list-group.appointments li .tools .glyphicon{
     cursor:pointer;
-}
-
-.btn .glyphicon{
-    font-size:12px;
 }
