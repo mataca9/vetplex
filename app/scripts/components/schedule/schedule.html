@@ -2,35 +2,66 @@
 
 <h2>
     Lista de agendamentos
-    <button class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+    <button ng-if="session.type == 'user'" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
         Novo
         <span class="glyphicon glyphicon-plus"></span>
     </button>
 </h2>
-<hr/>
-<ul class="list-group appointments" ng-if="session.type == 'professional'">
-    <li class="list-group-item" ng-repeat="schedule in scheduleList">
-        <span class="" ng-bind="schedule.service"></span>
-        <span class="" ng-bind="schedule.customer"></span>
-        <span class="" ng-bind="schedule.date"></span>
-        <span class="badge" ng-bind="schedule.status"></span>
-    </li>
-</ul>
-<ul class="list-group appointments" ng-if="session.type == 'user'">
-    <li class="list-group-item" ng-repeat="schedule in scheduleList">
-        <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="schedule.status"></span>
-        Serviço: <span class="info" ng-bind="schedule.service"></span>
-        Com: <span class="info" ng-bind="schedule.professional"></span>
-        Dia: <span class="info" ng-bind="schedule.date"></span>
-        Onde: <span class="info" ng-bind="schedule.place"></span>
-        <div class="tools">
-            <button class="btn btn-danger">
-                Cancelar                
-                <span title="Cancelar" class="glyphicon glyphicon-trash"><span>
-            </button>
-        </div>
-    </li>
-</ul>
+<br/>
+<div ng-if="session.type == 'user'">
+    <ul class="nav nav-tabs">
+        <li ng-click="limitFilter=2" class="active"><a data-toggle="tab">Recentes</a></li>
+        <li ng-click="limitFilter=10"><a data-toggle="tab">Histórico</a></li>
+    </ul>
+    <br/>
+    <ul class="list-group appointments">
+        <li class="list-group-item" ng-repeat="schedule in scheduleList | limitTo:limitFilter">
+            <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="schedule.status"></span>
+            Serviço: <span class="info" ng-bind="schedule.service"></span>
+            Com: <span class="info" ng-bind="schedule.professional"></span>
+            Dia: <span class="info" ng-bind="schedule.date"></span>
+            Onde: <span class="info" ng-bind="schedule.place"></span>
+            <div class="tools">
+                <div ng-if="schedule.status!='Rejeitado'" class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Ações
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-if="schedule.status!='Concluído'"><a href="#">Cancelar agendamento</a></li>
+                        <li ng-if="schedule.status=='Concluído'"><a href="#">Avaliar</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<div ng-if="session.type == 'professional'">
+    <ul class="nav nav-tabs">
+        <li ng-click="statusFilter=''" class="active"><a data-toggle="tab">Recentes</a></li>
+        <li ng-click="statusFilter='Pendente'"><a data-toggle="tab">Pendentes</a></li>
+        <li ng-click="statusFilter='Aprovado'"><a data-toggle="tab">Aprovados</a></li>
+    </ul>
+    <br/>
+    <ul class="list-group appointments">
+        <li class="list-group-item" ng-repeat="schedule in scheduleList | filter:{status:statusFilter}">
+            <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="schedule.status"></span>
+            Serviço: <span class="info" ng-bind="schedule.service"></span>
+            Cliente: <span class="info" ng-bind="schedule.professional"></span>
+            Dia: <span class="info" ng-bind="schedule.date"></span>
+            <div class="tools">
+                <div ng-if="schedule.status=='Pendente' || schedule.status=='Aprovado'" class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Ações
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li ng-click="changeStatus(schedule, 'Aprovado')" ng-if="schedule.status=='Pendente'"><a href="#">Aceitar</a></li>
+                        <li ng-click="changeStatus(schedule, 'Rejeitado')" ng-if="schedule.status=='Pendente'"><a href="#">Rejeitar</a></li>
+                        <li ng-click="changeStatus(schedule, 'Concluído')" ng-if="schedule.status=='Aprovado'"><a href="#">Concluir</a></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
 
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">

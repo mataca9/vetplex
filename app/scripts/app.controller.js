@@ -29,6 +29,7 @@
                 logged: false
             }
             sessionStorage.removeItem('vetplex-session');
+            go('/home');
         }
 
         function go ( path ) {

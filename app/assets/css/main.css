@@ -101,31 +101,35 @@
 }
 
 /*schedule*/
-.list-group.appointments li
+.list-group.appointments li.list-group-item
 {
     height: 60px;
     line-height: 40px;
 }
 
-.list-group.appointments li span.info{
+.list-group.appointments li.list-group-item span.info{
     display:inline-block;
     min-width:120px;
     margin-left:10px;
 }
 
-.list-group.appointments li span.label{
+.list-group.appointments li.list-group-item span.label{
     margin-right:10px;
     width:75px;
     display: inline-block;
     transform: translateY(-2px);
 }
 
-.list-group.appointments li .tools{
+.list-group.appointments li.list-group-item .tools{
     display:inline-block;
     float:right;
     margin-top:2px;
 }
 
-.list-group.appointments li .tools .glyphicon{
+.list-group.appointments li.list-group-item .tools .glyphicon{
+    cursor:pointer;
+}
+
+.nav.nav-tabs li{
     cursor:pointer;
 }

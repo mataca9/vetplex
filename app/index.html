@@ -28,7 +28,6 @@
                         <li ng-class="{'active': activeMenu=='home'}"><a href="#" ng-click="go('/home')">Buscar</a></li>
                         <li ng-class="{'active': activeMenu=='about'}"><a href="#" ng-click="go('/about')">Sobre</a></li>
                         <li ng-class="{'active': activeMenu=='schedule'}" ng-show="session.logged"><a href="#" ng-click="go('/schedule')">Agenda</a></li>
-                        <li ng-class="{'active': activeMenu=='rating'}" ng-show="session.logged && session.type == 'user';"><a href="#">Avaliar</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="ng-cloak" ng-show="!session.logged">
@@ -37,9 +36,16 @@
                             </button>
                         </li>
                         <li class="ng-cloak" ng-show="session.logged">
-                            <button class="btn btn-primary"ng-click="logout()">
-                                Sair
-                            </button>
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">
+                                <span ng-bind="session.name"></span>
+                                <span class="caret"></span></button>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                    <li role="presentation"><a role="menuitem" href="#">Configurações</a></li>
+                                    <li role="presentation" class="divider"></li>
+                                    <li ng-click="logout()" role="presentation"><a role="menuitem" href="#">Sair</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div><!--/.nav-collapse -->

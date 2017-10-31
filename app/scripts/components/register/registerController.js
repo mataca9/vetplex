@@ -6,7 +6,7 @@
         
     function RegisterController($scope, $rootScope, toastr, $timeout) {
         $scope.signIn = signIn;
-        $scope.register = register;
+        $scope.signUp = signUp;
         $scope.login = { username:'', password:'' };
         $scope.register = {
             name:'',
@@ -21,7 +21,7 @@
             //- busca usuario
             let user = {
                 name: 'teste',
-                type: 'user',
+                type: 'professional',
                 id: 1
             };
             
@@ -37,8 +37,8 @@
             $rootScope.go('/home');
         }
 
-        function register(){
-
+        function signUp(){
+            console.log(11);
         }
     }
 
