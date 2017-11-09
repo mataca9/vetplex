@@ -17,24 +17,32 @@
         };
         
         // -- private functions
-        function signIn(){
-            //- busca usuario
-            let user = {
-                name: 'teste',
-                type: 'professional',
-                id: 1
-            };
-            
-            //- cria sessao
+        function signIn(email, password){
+            return self.database.ref().child('users')
+                .orderByChild('username')
+                .equalTo(email)
+                .orderByChild('username')
+                .equalTo(hash(password))
+                .on("value", function(response) {
+
+                let user  = response.val();
+                console.log(user);
+
+                if(user){
+                    createSession(user);
+                    $rootScope.go('/home');
+                }
+            });
+        }
+
+        function createSession(user){
             $rootScope.session = {
                 logged: true,
-                id: user.id,
+                id: user.key,
                 name: user.name,
                 type: user.type
-                //others
             }
             sessionStorage.setItem('vetplex-session', JSON.stringify($rootScope.session));
-            $rootScope.go('/home');
         }
 
         function signUp(){

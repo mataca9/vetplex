@@ -3,9 +3,16 @@
     'use strict';
 
     angular.module('app')
-    .controller('mainController', ['$scope', '$rootScope', '$routeParams', '$location', '$timeout', '$interval', 'toastr', MainController]);
+    .controller('mainController', ['$scope', '$rootScope', '$routeParams', '$location', '$timeout', '$interval', 'toastr', 'firebaseService', MainController]);
 
-    function MainController($scope, $rootScope, $routeParams, $location, $timeout, $interval, toastr){
+    function MainController($scope, $rootScope, $routeParams, $location, $timeout, $interval, toastr, firebaseService){
+
+        firebaseService.init();
+
+        firebaseService.createUser('teste3', 'teste4@teste.com').then(function(response){
+
+        });
+
         $rootScope.go = go;
         $rootScope.logout = logout;
         $rootScope.session;

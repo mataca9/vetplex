@@ -13,9 +13,12 @@
 
         var self = this;
         self.init = init;
-        // example of methods (not the real data using on vetplex project)
+
+        //methods
         self.createUser = createUser;
         self.getUser = getUser;
+        self.getUsers = getUsers;
+        self.getUserLogin = getUserLogin;
 
         //-- Functions
         function init(){
@@ -31,23 +34,34 @@
             self.database = self.app.database();        
         };
         
-        //-- example of methods
-        function createUser(userId, name, email, imageUrl){
-            self.database.ref('users/' + userId).set({
+        //-- Methods
+        function createUser(name, email){
+            return self.database.ref('users/').push({
                 username: name,
-                email: email,
-                profile_picture : imageUrl
+                email: email
             });
         }
 
-        function getUser(userId){
-            // returns a promise
-            return self.database.ref('/users/' + userId).once('value');
-            /** example of usage (print user on console):
-             *  firebaseService.getUser(2).then(function(snapshot){
-             *      console.log(snapshot.val());
-             *  })
-             */ 
+        function getUser(id){
+            return self.database.ref('/users/' + id).once('value');
+        }
+
+        function getUsers(){
+            return self.database.ref('/users/').once('value');
+        }
+
+        function hash(s) {
+            var a = 1, c = 0, h, o;
+            if (s) {
+                a = 0;
+                for (h = s.length - 1; h >= 0; h--) {
+                    o = s.charCodeAt(h);
+                    a = (a<<6&268435455) + o + (o<<14);
+                    c = a & 266338304;
+                    a = c!==0?a^c>>21:a;
+                }
+            }
+            return String(a);
         }
     }
 })();
