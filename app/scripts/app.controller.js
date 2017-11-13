@@ -3,22 +3,17 @@
     'use strict';
 
     angular.module('app')
-    .controller('mainController', ['$scope', '$rootScope', '$routeParams', '$location', '$timeout', '$interval', 'toastr', 'firebaseService', MainController]);
+    .controller('mainController', ['$scope', '$rootScope', '$routeParams', '$location', '$timeout', '$interval', 'toastr', 'userService', MainController]);
 
-    function MainController($scope, $rootScope, $routeParams, $location, $timeout, $interval, toastr, firebaseService){
+    function MainController($scope, $rootScope, $routeParams, $location, $timeout, $interval, toastr){
 
-        firebaseService.init();
-
-        firebaseService.createUser('teste3', 'teste4@teste.com').then(function(response){
-
-        });
-
+        //-- Public
         $rootScope.go = go;
         $rootScope.logout = logout;
         $rootScope.session;
         $rootScope.activeMenu = 'home';
         
-        // -- private functions
+        // -- Methods
         (function init(){
             if(sessionStorage.getItem('vetplex-session')){
                 $rootScope.session = JSON.parse(sessionStorage.getItem('vetplex-session'));

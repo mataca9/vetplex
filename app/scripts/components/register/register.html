@@ -54,7 +54,7 @@
                                 <label>Senha:</label>
                                 <input type="password" class="form-control" ng-model="login.password" name="password" required />
                             </div>
-                            <button ng-disabled="loginForm.$invalid" ng-click="signIn()" class="btn btn-primary pull-right">Entrar</button>
+                            <button ng-disabled="loginForm.$invalid" ng-click="signIn(login.email, login.password)" class="btn btn-primary pull-right">Entrar</button>
                         </form>
                     </div>
                 </div>

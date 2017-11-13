@@ -1,10 +1,12 @@
 (function () {
     'use strict';
     angular.module('app')
-        .controller('registerController', ['$scope', '$rootScope', 'toastr', '$timeout', RegisterController]);
+        .controller('registerController', ['$scope', '$rootScope', 'toastr', '$timeout', 'userService', RegisterController]);
 
         
-    function RegisterController($scope, $rootScope, toastr, $timeout) {
+    function RegisterController($scope, $rootScope, toastr, $timeout, userService) {
+
+        //-- Public
         $scope.signIn = signIn;
         $scope.signUp = signUp;
         $scope.login = { username:'', password:'' };
@@ -16,22 +18,16 @@
             type: ''
         };
         
-        // -- private functions
+        //-- Methods
         function signIn(email, password){
-            return self.database.ref().child('users')
-                .orderByChild('username')
-                .equalTo(email)
-                .orderByChild('username')
-                .equalTo(hash(password))
-                .on("value", function(response) {
-
-                let user  = response.val();
-                console.log(user);
-
+            userService.getUserLogin(email, password).then(function(user){
                 if(user){
                     createSession(user);
+                    toastr.success('Bem vindo ' + user.name);
                     $rootScope.go('/home');
                 }
+            }, function(error){
+                toastr.error(error);
             });
         }
 
@@ -46,7 +42,16 @@
         }
 
         function signUp(){
-            console.log(11);
+            userService.getUserByEmail($scope.register.email).then(function(snapshot){
+                let user = snapshot.val();
+                if (user){
+                    toastr.error("O email selecionado já está em uso");
+                } else {
+                    userService.createUser($scope.register).then(function(){
+                        signIn($scope.register.email, $scope.register.password);
+                    });
+                }
+            });
         }
     }
 
