@@ -9,6 +9,7 @@
         $scope.limitFilter = 2;
         $scope.statusFilter = '';
         $scope.changeStatus = changeStatus;
+        $scope.modalSelect = null;
         // Mock
         $scope.scheduleList = [];
         if ($rootScope.session.type == 'user'){

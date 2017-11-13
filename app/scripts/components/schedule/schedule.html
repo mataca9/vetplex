@@ -73,11 +73,19 @@
             <h4 class="modal-title">Novo agendamento</h4>
         </div>
         <div class="modal-body">
-            <p>Some text in the modal.</p>
+            <h4>Selecione o tipo de serviço desejado:</h4>
+            <div class="modal-service">
+                <div class="modal-service-select pet" ng-class="{'selected':modalSelect=='pet'}" ng-click="modalSelect='pet'">
+                    Estética
+                </div>
+                <div class="modal-service-select vet" ng-class="{'selected':modalSelect=='vet'}" ng-click="modalSelect='vet'">
+                    Veterinário
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Cadastrar</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modalSelect=null">Fechar</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Agendar</button>
         </div>
         </div>
 
