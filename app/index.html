@@ -1,4 +1,4 @@
-<html lang="en" ng-app="app" ng-controller="mainController">
+<html lang="en">
     <head>
         <title>VETPLEX</title>
         <meta charset="utf-8">
@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="assets/css/main.css" />
         <!-- endbuild -->
     </head>
-    <body>
+    <body ng-app="app" ng-controller="mainController">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -31,7 +31,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="ng-cloak" ng-show="!session.logged">
-                            <button class="btn btn-primary"ng-click="go('/register')">
+                            <button class="btn btn-primary" ng-click="go('/register')">
                                 Acessar
                             </button>
                         </li>
@@ -41,6 +41,7 @@
                                 <span ng-bind="session.name"></span>
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                                    <li ng-if="session.type=='professional'" role="presentation" ng-click="go('/page', {id: session.id})"><a role="menuitem" href="#">Minha página</a></li>
                                     <li role="presentation"><a role="menuitem" href="#">Configurações</a></li>
                                     <li role="presentation" class="divider"></li>
                                     <li ng-click="logout()" role="presentation"><a role="menuitem" href="#">Sair</a></li>

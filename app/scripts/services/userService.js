@@ -42,7 +42,10 @@
                 firebase.database.ref('/users/').orderByChild('password').equalTo(hash(password)).once("value").then(function(snapshot){
                     if(snapshot.val()){
                         let users = snapshot.val();
-                        let user = Object.keys(users).map(k => users[k]).find(u => u.email == email);
+                        let user = Object.keys(users).map(function(k){
+                            users[k].id = k;
+                            return users[k];
+                        }).find(u => u.email == email);
                         if(user){
                             resolve(user);
                         }

@@ -33,7 +33,7 @@
                 controller: 'scheduleController',
                 controllerAs: '_ctrl'
             })
-            .when('/page:ID', {
+            .when('/page', {
                 templateUrl: _templateBase + '/components/page/page.html' ,
                 controller: 'pageController',
                 controllerAs: '_ctrl'

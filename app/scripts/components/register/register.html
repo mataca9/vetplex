@@ -8,8 +8,8 @@
                             <form name="registerForm" class="form">
                                 <div class="form-group" ng-class="{'error': registerForm.type.$invalid && registerForm.type.$dirty}">
                                     <label>Eu sou:</label>
-                                    <select class="form-control" name="type" ng-model="register.type" ng-required="register.type != 0">
-                                        <option ng-value="''" selected>Selecione</option>
+                                    <select class="form-control" name="type" ng-model="register.type">
+                                        <option ng-value="0" selected>Selecione</option>
                                         <option ng-value="'user'">Usuário</option>
                                         <option ng-value="'professional'">Estabelecimento / Profissional</option>
                                     </select>
@@ -36,7 +36,7 @@
                                     <label>Confirme sua senha:</label>
                                     <input type="password" class="form-control" ng-model="register.password2" name="password2" required />
                                 </div>
-                                <button ng-disabled="registerForm.$invalid && register.password != register.password2" ng-click="signUp()" class="btn btn-primary pull-right">Cadastrar</button>
+                                <button ng-disabled="register.type == 0 || registerForm.$invalid || register.password != register.password2" ng-click="signUp()" class="btn btn-primary pull-right">Cadastrar</button>
                             </form>
                         </div>
                     </div>

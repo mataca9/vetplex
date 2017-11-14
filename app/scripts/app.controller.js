@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('app')
-    .controller('mainController', ['$scope', '$rootScope', '$routeParams', '$location', '$timeout', '$interval', 'toastr', 'userService', MainController]);
+    .controller('mainController', ['$scope', '$rootScope', '$routeParams', '$location', '$timeout', '$interval', 'toastr', MainController]);
 
     function MainController($scope, $rootScope, $routeParams, $location, $timeout, $interval, toastr){
 
@@ -34,7 +34,8 @@
             go('/home');
         }
 
-        function go ( path ) {
+        function go ( path, params ) {
+            sessionStorage.setItem('params', JSON.stringify(params));
             $rootScope.activeMenu = path.split('/').pop();
             $location.path( path );
         };
