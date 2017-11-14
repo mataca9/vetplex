@@ -6,13 +6,13 @@
 
     angular.module('app')
     .config(['$routeProvider', '$locationProvider', route]);
-    
+
     function route($routeProvider, $locationProvider) {
         $locationProvider.html5Mode({
             enabled: true,
             requireBase: false
         });
-        $routeProvider   
+        $routeProvider
             .when('/', {
                 templateUrl: _templateBase + '/components/home/home.html' ,
                 controller: 'homeController',
@@ -36,6 +36,11 @@
             .when('/page', {
                 templateUrl: _templateBase + '/components/page/page.html' ,
                 controller: 'pageController',
+                controllerAs: '_ctrl'
+            })
+            .when('/config', {
+                templateUrl: _templateBase + '/components/config/config.html' ,
+                controller: 'configController',
                 controllerAs: '_ctrl'
             })
         $routeProvider.otherwise({ redirectTo: '/' });

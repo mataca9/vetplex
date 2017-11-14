@@ -42,7 +42,7 @@
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                     <li ng-if="session.type=='professional'" role="presentation" ng-click="go('/page', {id: session.id})"><a role="menuitem" href="#">Minha página</a></li>
-                                    <li role="presentation"><a role="menuitem" href="#">Configurações</a></li>
+                                    <li ng-click="go('/config')" role="presentation"><a role="menuitem" href="#">Configurações</a></li>
                                     <li role="presentation" class="divider"></li>
                                     <li ng-click="logout()" role="presentation"><a role="menuitem" href="#">Sair</a></li>
                                 </ul>
@@ -59,16 +59,16 @@
                 <!-- component loading -->
                 <article class="content">
                     <ng-view></ng-view>
-                </article>           
-                
+                </article>
+
             </div>
             <div class="copyright">
                 © 2017 Vetplex, Inc
             </div>
         </div>
 
-    
-    
+
+
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChaRfGQtK3uQQ0Kqf7Xud1DlXYlz6OV9A">
         </script>
         <!-- build:js scripts/vendor.js -->
@@ -101,6 +101,7 @@
         <script src="./scripts/components/about/aboutController.js"></script>
         <script src="./scripts/components/schedule/scheduleController.js"></script>
         <script src="./scripts/components/page/pageController.js"></script>
+        <script src="./scripts/components/config/configController.js"></script>
         <!-- endbuild -->
     </body>
 </html>
