@@ -15,6 +15,8 @@
         self.getUsers = getUsers;
         self.getUserLogin = getUserLogin;
         self.getUserByEmail = getUserByEmail;
+        self.getProfessionals = getProfessionals;
+        self.updateUser = updateUser;
         
         //-- Methods
         function createUser(user){
@@ -54,6 +56,29 @@
                     reject('Senha ou email inválidos');
                 });
             });
+        }
+
+        function getProfessionals(){
+            return firebase.database.ref('/users/').orderByChild('type').equalTo("professional").once('value');
+        }
+
+        function updateUser(id, fields, rootKey) {
+            let updates = {};
+            let root = rootKey ? rootKey + '/' : '';
+
+            let recursiveUpdate = function(currentKey, currentValue, currentPath){
+                if(currentValue instanceof Object){
+                    for (let key in currentValue) {
+                        let path = currentPath ? currentPath+'/'+key : key;
+                        recursiveUpdate(key, currentValue[key], path);
+                    }
+                } else {
+                    updates[`/users/${id}/${root}${currentPath}`] = currentValue;
+                }
+            }
+
+            recursiveUpdate(null, fields, '');
+            return firebase.database.ref().update(updates);
         }
 
         function hash(s) {

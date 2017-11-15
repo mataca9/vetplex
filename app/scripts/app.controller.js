@@ -3,12 +3,11 @@
     'use strict';
 
     angular.module('app')
-    .controller('mainController', ['$scope', '$rootScope', '$routeParams', '$location', '$timeout', '$interval', 'toastr', MainController]);
+    .controller('mainController', ['$scope', '$rootScope', '$location', '$timeout', '$interval', 'toastr', '$state', MainController]);
 
-    function MainController($scope, $rootScope, $routeParams, $location, $timeout, $interval, toastr){
+    function MainController($scope, $rootScope, $location, $timeout, $interval, toastr, $state){
 
         //-- Public
-        $rootScope.go = go;
         $rootScope.logout = logout;
         $rootScope.session;
         $rootScope.activeMenu = 'home';
@@ -31,14 +30,8 @@
                 logged: false
             }
             sessionStorage.removeItem('vetplex-session');
-            go('/home');
+            $state.go('home');
         }
-
-        function go ( path, params ) {
-            sessionStorage.setItem('params', JSON.stringify(params));
-            $rootScope.activeMenu = path.split('/').pop();
-            $location.path( path );
-        };
     }
 
 })();

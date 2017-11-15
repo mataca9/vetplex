@@ -4,7 +4,7 @@
     var _templateBase = './scripts';
 
     angular.module('app', [
-        'ngRoute',
+        'ui.router',
         'ngAnimate',
         'toastr',
         'ui.mask'

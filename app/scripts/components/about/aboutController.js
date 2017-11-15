@@ -4,9 +4,7 @@
         .controller('aboutController', ['$scope', '$rootScope', 'toastr', '$timeout', 'firebaseService', AboutController]);
 
         
-    function AboutController($scope, $rootScope, toastr, $timeout, firebaseService) {
-
-		
+    function AboutController($scope, $rootScope, toastr, $timeout, firebaseService) {		
     }
 
 })();

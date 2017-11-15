@@ -1,10 +1,10 @@
 (function () {
     'use strict';
     angular.module('app')
-        .controller('registerController', ['$scope', '$rootScope', 'toastr', '$timeout', 'userService', RegisterController]);
+        .controller('registerController', ['$scope', '$rootScope', 'toastr', '$timeout', 'userService', '$state', RegisterController]);
 
         
-    function RegisterController($scope, $rootScope, toastr, $timeout, userService) {
+    function RegisterController($scope, $rootScope, toastr, $timeout, userService, $state) {
 
         //-- Public
         $scope.signIn = signIn;
@@ -24,7 +24,7 @@
                 if(user){
                     createSession(user);
                     toastr.success('Bem vindo ' + user.name);
-                    $rootScope.go('/home');
+                    $state.go('home');
                 }
             }, function(error){
                 toastr.error(error);

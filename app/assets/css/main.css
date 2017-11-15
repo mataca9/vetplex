@@ -72,7 +72,7 @@ body {
     content:"";
     width:800px;
     height:430px;
-    background-image:url(/app/assets/image/cover.jpg);
+    background-image:url(../image/cover.jpg);
     filter:blur(5px);
     position:absolute;
     top:0;
@@ -94,6 +94,18 @@ body {
 #map {
     height: 400px;
     width: 100%;
+}
+
+.profissional-list {
+    margin-bottom:0;
+}
+.profissional-list-item {
+    cursor:pointer;
+}
+
+.profissional-list .panel-body{
+    height: 359px;
+    overflow:auto;
 }
 
 /*register*/
@@ -167,9 +179,114 @@ body {
 }
 
 .modal-service-select.vet{
-    background-image:url(/app/assets/image/vet.png);
+    background-image:url(../image/vet.png);
 }
 
 .modal-service-select.pet{
-    background-image:url(/app/assets/image/pet.png);
+    background-image:url(../image/pet.png);
 }
+
+/*page*/
+.rating-number{
+    font-size:32px;
+    font-weight: bold;
+    margin-left:10px;
+}
+
+.rating-star {
+    font-size: 24px;
+    color:#ffc800;
+    margin:2px;
+}
+
+.rating-star.unrated{
+    color:#ccc;
+}
+
+.list-even-odd li:nth-child(even){
+    background-color:#d9f3ff;
+}
+
+.list-even-odd li:nth-child(odd){
+    background-color:#f3fbff;
+}
+
+/*config*/
+.service-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-obs{
+    font-size:10px;
+    font-color:#444;
+}
+
+/*scroll*/
+::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar
+{
+	width: 8px;
+	height: 8px;
+	background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #ccc;
+}
+
+/* -- material switch*/
+.material-switch > input[type="checkbox"] {
+    display: none;   
+}
+
+.material-switch > label {
+    cursor: pointer;
+    height: 0px;
+    position: relative; 
+    width: 40px;  
+}
+
+.material-switch > label::before {
+    background: rgb(0, 0, 0);
+    box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    content: '';
+    height: 16px;
+    margin-top: -8px;
+    position:absolute;
+    opacity: 0.3;
+    transition: all 0.4s ease-in-out;
+    width: 40px;
+}
+.material-switch > label::after {
+    background: rgb(255, 255, 255);
+    border-radius: 16px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+    content: '';
+    height: 24px;
+    left: -4px;
+    margin-top: -8px;
+    position: absolute;
+    top: -4px;
+    transition: all 0.3s ease-in-out;
+    width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+    background: inherit;
+    opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+    background: inherit;
+    left: 20px;
+}
+/* -- material switch end */

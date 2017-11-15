@@ -2,48 +2,60 @@
 (function () {
     'use strict';
 
-    var _templateBase = './app/scripts';
+    var _templateBase = './scripts';
 
     angular.module('app')
-    .config(['$routeProvider', '$locationProvider', route]);
+    .config(['$stateProvider', '$urlRouterProvider', route]);
 
-    function route($routeProvider, $locationProvider) {
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
-        $routeProvider
-            .when('/', {
-                templateUrl: _templateBase + '/components/home/home.html' ,
-                controller: 'homeController',
-                controllerAs: '_ctrl'
-            })
-            .when('/about', {
-                templateUrl: _templateBase + '/components/about/about.html' ,
-                controller: 'aboutController',
-                controllerAs: '_ctrl'
-            })
-            .when('/register', {
-                templateUrl: _templateBase + '/components/register/register.html' ,
-                controller: 'registerController',
-                controllerAs: '_ctrl'
-            })
-            .when('/schedule', {
-                templateUrl: _templateBase + '/components/schedule/schedule.html' ,
-                controller: 'scheduleController',
-                controllerAs: '_ctrl'
-            })
-            .when('/page', {
-                templateUrl: _templateBase + '/components/page/page.html' ,
-                controller: 'pageController',
-                controllerAs: '_ctrl'
-            })
-            .when('/config', {
-                templateUrl: _templateBase + '/components/config/config.html' ,
-                controller: 'configController',
-                controllerAs: '_ctrl'
-            })
-        $routeProvider.otherwise({ redirectTo: '/' });
+    function route($stateProvider, $urlRouterProvider) {
+        // $locationProvider.html5Mode({
+        //     enabled: true,
+        //     requireBase: false
+        // });
+
+        $urlRouterProvider.otherwise('/');
+        
+        $stateProvider
+
+        .state('home', {
+            url: '/',
+            templateUrl: _templateBase + '/components/home/home.html' ,
+            controller: 'homeController',
+            controllerAs: '_ctrl'
+        })
+        .state('about', {
+            url: '/about',
+            templateUrl: _templateBase + '/components/about/about.html' ,
+            controller: 'aboutController',
+            controllerAs: '_ctrl'
+        })
+        .state('register', {
+            url: '/register',
+            templateUrl: _templateBase + '/components/register/register.html' ,
+            controller: 'registerController',
+            controllerAs: '_ctrl'
+        })
+        .state('schedule', {
+            url: '/schedule',
+            templateUrl: _templateBase + '/components/schedule/schedule.html' ,
+            controller: 'scheduleController',
+            controllerAs: '_ctrl'
+        })
+        .state('page', {
+            url: '/page/:id',
+            params: {
+                id: null
+            },
+            templateUrl: _templateBase + '/components/page/page.html' ,
+            controller: 'pageController',
+            controllerAs: '_ctrl'
+        })
+        .state('config', {
+            url: '/config',
+            templateUrl: _templateBase + '/components/config/config.html' ,
+            controller: 'configController',
+            controllerAs: '_ctrl'
+        })
     };
 
 })();

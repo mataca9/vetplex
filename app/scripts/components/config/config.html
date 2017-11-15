@@ -1,1 +1,130 @@
-Ola!
+<h2>Configurações</h2>
+<hr/>
+
+<div class="conteiner">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">Dados gerais</div>
+                <div class="panel-body">
+                    <form name="generalForm" class="form">
+                        <div class="form-group" ng-class="{'error': generalForm.name.$invalid && generalForm.name.$dirty}">
+                            <label ng-show="session.type == 'user'">Nome completo:</label>
+                            <label ng-show="session.type == 'professional'">Razão social / Nome fantasia:</label>
+                            <input type="text" class="form-control" ng-model="user.name" name="name" required />
+                        </div>
+                        <div class="form-group" ng-class="{'error': generalForm.email.$invalid && generalForm.email.$dirty}">
+                            <label>Email:</label>
+                            <input type="email" class="form-control" ng-model="user.email" name="email" required />
+                        </div>
+                        <button ng-disabled="generalForm.$invalid" ng-click="saveGeneral()" class="btn btn-primary pull-right">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div> 
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">Alterar senha</div>
+                <div class="panel-body">
+                    <form name="passwordForm" class="form">
+                        <div class="form-group" ng-class="{'error': passwordForm.password.$invalid && passwordForm.password.$dirty}">
+                            <label>Senha:</label>
+                            <input type="password" class="form-control" ng-model="user.password" name="password" required />
+                        </div>
+                        <div class="form-group" ng-class="{'error': (passwordForm.password2.$invalid || user.password != user.password2) && passwordForm.password2.$dirty }">
+                            <label>Confirme sua senha:</label>
+                            <input type="password" class="form-control" ng-model="user.password2" name="password2" required />
+                        </div>
+                        <button ng-disabled="passwordForm.$invalid || user.password != user.password2" ng-click="savePassword()" class="btn btn-primary pull-right">Salvar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div ng-show="user.type=='professional'" class="col-md-12">
+            <div class="panel panel-warning">
+                <div class="panel-heading">Informações profissionais</div>
+                <div class="panel-body row">
+                    <form name="professionalForm" class="form">
+                        <div class="col-md-6">
+                            <div class="form-group" ng-class="{'error': generalForm.about.$invalid && generalForm.about.$dirty}">
+                                <label>Sobre:</label>
+                                <textarea class="form-control" rows="3" ng-model="user.professional.about" name="about" required><textarea/>
+                            </div>
+                            <div class="form-group" ng-class="{'error': generalForm.phone.$invalid && generalForm.phone.$dirty}">
+                                <label>Telefone:</label>
+                                <input type="text" class="form-control" ng-model="user.professional.phone" name="phone" required />
+                            </div>
+                            <div class="form-group" ng-class="{'error': generalForm.address.$invalid && generalForm.address.$dirty}">
+                                <label>Cidade:</label>
+                                <select class="form-control" ng-model="user.professional.city" name="city" required>
+                                    <option value="porto alegre">Porto Alegre</option>
+                                    <option value="sao paulo">São Paulo</option>
+                                </select>
+                            </div>
+                            <div class="form-group" ng-class="{'error': generalForm.address.$invalid && generalForm.address.$dirty}">
+                                <label>Endereço*:</label>
+                                <input type="text" class="form-control" ng-model="user.professional.address" name="address" required />
+                                <span class="form-obs">*Apenas logradouro e número por extenso.</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Opções:</label>         
+                                <ul class="list-group">
+                                    <li class="list-group-item service-list-item">
+                                        Página visível
+                                        <div class="material-switch pull-right">
+                                            <input id="visible" ng-model="user.professional.visible" name="visible" type="checkbox"/>
+                                            <label for="visible" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="form-group">
+                                <label>Serviços:</label>         
+                                <ul class="list-group">
+                                    <li class="list-group-item service-list-item">
+                                        Atendimento clínico
+                                        <div class="material-switch pull-right">
+                                            <input id="service1" ng-model="user.professional.service.clinic" name="clinic" type="checkbox"/>
+                                            <label for="service1" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item service-list-item">
+                                        Procedimentos cirurgicos
+                                        <div class="material-switch pull-right">
+                                            <input id="service2" ng-model="user.professional.service.surgery" name="surgery" type="checkbox"/>
+                                            <label for="service2" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item service-list-item">
+                                        Banho
+                                        <div class="material-switch pull-right">
+                                            <input id="service3" ng-model="user.professional.service.wash" name="wash" type="checkbox"/>
+                                            <label for="service3" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item service-list-item">
+                                        Tosa
+                                        <div class="material-switch pull-right">
+                                            <input id="service4" ng-model="user.professional.service.shear" name="shear" type="checkbox"/>
+                                            <label for="service4" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item service-list-item">
+                                        Varejo
+                                        <div class="material-switch pull-right">
+                                            <input id="service5" ng-model="user.professional.service.sell" name="sell" type="checkbox"/>
+                                            <label for="service5" class="label-success"></label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button ng-disabled="professionalForm.$invalid" ng-click="saveProfessional()" class="btn btn-primary pull-right">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>   
+    </div>
+</div>

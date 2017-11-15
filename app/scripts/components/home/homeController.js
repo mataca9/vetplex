@@ -1,96 +1,61 @@
 (function () {
     'use strict';
     angular.module('app')
-        .controller('homeController', ['$scope', '$rootScope', 'toastr', '$timeout', HomeController]);
+        .controller('homeController', ['$scope', '$rootScope', 'toastr', '$timeout', 'mapService', 'userService', HomeController]);
 
         
-    function HomeController($scope, $rootScope, toastr, $timeout) {
-        $scope.map;
-        $scope.geocoder;
-        $scope.markers = [];
+    function HomeController($scope, $rootScope, toastr, $timeout, mapService, userService) {
+        $scope.professionals = [];
+        //{ name: 'Zoo Life', address: 'Protasio Alves, 2000', rating: 2, service:1, region:"leste"}             
         $scope.loadMap = loadMap;
         $scope.filter = {
             service: 0,
-            region: 0
+            city: 0
         }
-        // Mock
-        $scope.places = [
-            { name: 'Dog Health', address: 'Chafic joão scaf, 77', rating: 4, service:1, region:"norte"},
-            { name: 'PetLovers', address: 'Jari, 551', rating: 5, service:2, region:"norte"},
-            { name: 'Cat Dreams', address: 'Avenida Ipiranga, 7200', rating: 3, service:2, region:"leste"},
-            { name: 'Zoo Life', address: 'Protasio Alves, 2000', rating: 2, service:1, region:"leste"}             
-        ];
 
         // -- private functions
-		(function init(){
-            if(!$scope.map){
-                initMap();  
-            }
-        })();
-
-        function initMap () {
-            $scope.geocoder = new google.maps.Geocoder();
-            $scope.map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 12
-            });
-
-            $scope.geocoder.geocode( {'address' : 'porto alegre'}, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    $scope.map.setCenter(results[0].geometry.location);
+        function init () {
+            userService.getProfessionals().then(function(snapshop){
+                let professionals = [];
+                for(let key in snapshop.val()){
+                    let professional = snapshop.val()[key];
+                    professional.id = key;
+                    professionals.push(professional);
                 }
-            });
-        }
-
-        function addMarkers(filter) {
-            console.log(filter);
-            let filtered = $scope.places.filter(p =>
-                (filter.service == 0 || filter.service == p.service) && (filter.region == 0 || filter.region == p.region)
-            )
-            filtered.forEach(p => {
-                $scope.geocoder.geocode( { 'address': p.address}, function(results, status) {
-                    let content = `
-                        <div id="content">
-                            <div id="siteNotice">
-                            </div>
-                            <h1 id="firstHeading" class="firstHeading">
-                                ${p.name}
-                            </h1>
-                            <div id="bodyContent">
-                                <p>
-                                    Some text
-                                </p>
-                                <p>Rating: ${p.rating}</p>
-                            </div>
-                        </div>`;
-
-
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        let infowindow = new google.maps.InfoWindow({content});
-                        let marker = new google.maps.Marker({
-                            map: $scope.map,
-                            position: results[0].geometry.location
-                        });
-                        marker.addListener('click', function() {
-                            infowindow.open(map, marker);
-                        });
-                        $scope.markers.push(marker);
-                    } else {
-                        alert('Geocode was not successful for the following reason: ' + status);
-                    }
+                $scope.professionals = professionals.filter(p => p.professional && p.professional.visible);
+                $scope.filtered = $scope.professionals.slice();
+                mapService.init(function(){
+                    loadMap();
                 });
+                $scope.$apply();
             })
         }
 
         function loadMap(){
-            clearMarkers();
-            addMarkers($scope.filter);
+            $scope.filtered = [];                               
+            $scope.professionals.forEach(function(place){
+                let add = true;
+
+                if(($scope.filter.city && $scope.filter.city != place.professional.city) ||
+                    ($scope.filter.service && !place.professional.service[$scope.filter.service])
+                ){
+                    add = false;
+                }
+
+                if(add){
+                    $scope.filtered.push(place);                    
+                }
+            });            
+            mapService.setPlaces($scope.filtered);
+            mapService.clearMarkers();
+            mapService.addMarkers();
+            if($scope.filter.city){
+                mapService.setRegion($scope.filter.city);
+            }
         }
 
-        function clearMarkers(){
-            $scope.markers.forEach(function(marker) {
-                marker.setMap(null);
-            }, this);
-        }
+        // -- Init
+        init();
     }
 
 })();

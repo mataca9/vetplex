@@ -26,13 +26,13 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li ng-class="{'active': activeMenu=='home'}"><a href="#" ng-click="go('/home')">Buscar</a></li>
-                        <li ng-class="{'active': activeMenu=='about'}"><a href="#" ng-click="go('/about')">Sobre</a></li>
-                        <li ng-class="{'active': activeMenu=='schedule'}" ng-show="session.logged"><a href="#" ng-click="go('/schedule')">Agenda</a></li>
+                        <li ui-sref-active="active" ui-sref="home"><a href="#">Buscar</a></li>
+                        <li ui-sref-active="active" ui-sref="about"><a href="#">Sobre</a></li>
+                        <li ui-sref-active="active" ng-show="session.logged" ui-sref="schedule"><a href="#">Agenda</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="ng-cloak" ng-show="!session.logged">
-                            <button class="btn btn-primary" ng-click="go('/register')">
+                            <button class="btn btn-primary" ui-sref="register">
                                 Acessar
                             </button>
                         </li>
@@ -42,8 +42,8 @@
                                 <span ng-bind="session.name"></span>
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                    <li ng-if="session.type=='professional'" role="presentation" ng-click="go('/page', {id: session.id})"><a role="menuitem" href="#">Minha página</a></li>
-                                    <li ng-click="go('/config')" role="presentation"><a role="menuitem" href="#">Configurações</a></li>
+                                    <li ng-if="session.type=='professional'" role="presentation" ui-sref="page({id: session.id})"><a role="menuitem" href="#">Minha página</a></li>
+                                    <li ui-sref="config" role="presentation"><a role="menuitem" href="#">Configurações</a></li>
                                     <li role="presentation" class="divider"></li>
                                     <li ng-click="logout()" role="presentation"><a role="menuitem" href="#">Sair</a></li>
                                 </ul>
@@ -59,7 +59,7 @@
 
                 <!-- component loading -->
                 <article class="content">
-                    <ng-view></ng-view>
+                    <ui-view></ui-view>
                 </article>
 
             </div>
@@ -75,7 +75,8 @@
         <!-- build:js scripts/vendor.js -->
         <script src="../bower_components/jquery/dist/jquery.min.js"></script>
         <script src="../bower_components/angular/angular.js"></script>
-        <script src="../bower_components/angular-route/angular-route.js"></script>
+        <!--<script src="../bower_components/angular-route/angular-route.js"></script>-->
+        <script src="//unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
         <script src="../bower_components/angular-animate/angular-animate.js"></script>
         <script src="../bower_components/angular-aria/angular-aria.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -95,6 +96,7 @@
         <!-- build:app scripts/filter -->
         <!-- build:app scripts/services -->
         <script src="./scripts/services/firebaseService.js"></script>
+        <script src="./scripts/services/mapService.js"></script>
         <script src="./scripts/services/userService.js"></script>
         <!-- build:app scripts/components -->
         <script src="./scripts/components/home/homeController.js"></script>
