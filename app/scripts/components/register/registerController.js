@@ -15,7 +15,7 @@
             email:'',
             password:'',
             doc:'',
-            type: ''
+            type: 0
         };
         
         //-- Methods
@@ -34,7 +34,7 @@
         function createSession(user){
             $rootScope.session = {
                 logged: true,
-                id: user.key,
+                id: user.id,
                 name: user.name,
                 type: user.type
             }

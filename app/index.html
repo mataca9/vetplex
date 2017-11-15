@@ -1,4 +1,4 @@
-<html lang="en" ng-app="app" ng-controller="mainController">
+<html lang="en">
     <head>
         <title>VETPLEX</title>
         <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="assets/css/main.css" />
         <!-- endbuild -->
     </head>
-    <body>
+    <body ng-app="app" ng-controller="mainController">
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -32,7 +32,7 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li class="ng-cloak" ng-show="!session.logged">
-                            <button class="btn btn-primary"ng-click="go('/register')">
+                            <button class="btn btn-primary" ng-click="go('/register')">
                                 Acessar
                             </button>
                         </li>
@@ -42,7 +42,8 @@
                                 <span ng-bind="session.name"></span>
                                 <span class="caret"></span></button>
                                 <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-                                    <li role="presentation"><a role="menuitem" href="#">Configurações</a></li>
+                                    <li ng-if="session.type=='professional'" role="presentation" ng-click="go('/page', {id: session.id})"><a role="menuitem" href="#">Minha página</a></li>
+                                    <li ng-click="go('/config')" role="presentation"><a role="menuitem" href="#">Configurações</a></li>
                                     <li role="presentation" class="divider"></li>
                                     <li ng-click="logout()" role="presentation"><a role="menuitem" href="#">Sair</a></li>
                                 </ul>
@@ -59,16 +60,16 @@
                 <!-- component loading -->
                 <article class="content">
                     <ng-view></ng-view>
-                </article>           
-                
+                </article>
+
             </div>
             <div class="copyright">
                 © 2017 Vetplex, Inc
             </div>
         </div>
 
-    
-    
+
+
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChaRfGQtK3uQQ0Kqf7Xud1DlXYlz6OV9A">
         </script>
         <!-- build:js scripts/vendor.js -->
@@ -101,6 +102,7 @@
         <script src="./scripts/components/about/aboutController.js"></script>
         <script src="./scripts/components/schedule/scheduleController.js"></script>
         <script src="./scripts/components/page/pageController.js"></script>
+        <script src="./scripts/components/config/configController.js"></script>
         <!-- endbuild -->
     </body>
 </html>
