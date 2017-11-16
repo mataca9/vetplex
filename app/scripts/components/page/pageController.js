@@ -23,7 +23,6 @@
             userService.getUser($stateParams.id).then(function(snapshot){
                 $scope.user = snapshot.val();
                 $scope.rating = $scope.rating.map((v,i) => i < Math.floor($scope.user.rating) ? 1 : 0);
-                console.log($scope.user)
                 mapService.init(function(){
                     loadMap();
                 });

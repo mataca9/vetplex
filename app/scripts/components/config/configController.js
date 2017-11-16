@@ -1,10 +1,10 @@
 (function () {
     'use strict';
     angular.module('app')
-        .controller('configController', ['$scope', '$rootScope', 'toastr', '$timeout', 'userService', ConfigController]);
+        .controller('configController', ['$scope', '$rootScope', 'toastr', '$timeout', 'userService', '$filter', ConfigController]);
 
 
-    function ConfigController($scope, $rootScope, toastr, $timeout, userService) {
+    function ConfigController($scope, $rootScope, toastr, $timeout, userService, $filter) {
 
 		$scope.user = {};
 		$scope.saveGeneral = saveGeneral;
@@ -48,7 +48,7 @@
 
 		function savePassword() {
 			var updates = {
-				password: hash($scope.user.password)
+				password: $filter('hashFilter')($scope.user.password)
 			};
 
 			userService.updateUser($scope.user.id, updates).then(function(){
@@ -65,20 +65,6 @@
 				toastr.error("Ocorreu um erro!");
 			});
 		}
-
-		function hash(s) {
-            var a = 1, c = 0, h, o;
-            if (s) {
-                a = 0;
-                for (h = s.length - 1; h >= 0; h--) {
-                    o = s.charCodeAt(h);
-                    a = (a<<6&268435455) + o + (o<<14);
-                    c = a & 266338304;
-                    a = c!==0?a^c>>21:a;
-                }
-            }
-            return String(a);
-        }
 
 		//-- Init
         init();

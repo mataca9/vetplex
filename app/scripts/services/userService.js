@@ -2,9 +2,9 @@
     'use strict';
     
     angular.module('app')
-    .service('userService', ['firebaseService', UserService]);
+    .service('userService', ['firebaseService', '$filter', UserService]);
     
-    function UserService(firebase){
+    function UserService(firebase, $filter){
 
         var self = this;
         firebase.init();
@@ -20,7 +20,7 @@
         
         //-- Methods
         function createUser(user){
-            let password = hash(user.password);
+            let password = $filter('hashFilter')(user.password);
             let newUser = JSON.parse(JSON.stringify(user));
             delete newUser.password2;
             newUser.password = password;
