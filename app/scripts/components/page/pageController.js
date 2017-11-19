@@ -22,6 +22,7 @@
         function init() {
             userService.getUser($stateParams.id).then(function(snapshot){
                 $scope.user = snapshot.val();
+                $scope.user.id = $stateParams.id;
                 $scope.rating = $scope.rating.map((v,i) => i < Math.floor($scope.user.rating) ? 1 : 0);
                 mapService.init(function(){
                     loadMap();
@@ -35,7 +36,7 @@
             mapService.clearMarkers();
             mapService.addMarkers();
             if($scope.user.professional.city){
-                mapService.setRegion($scope.user.professional.city);
+                mapService.setRegion($scope.user.professional.address);
             }
         }
 

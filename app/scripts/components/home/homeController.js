@@ -51,6 +51,8 @@
             mapService.addMarkers();
             if($scope.filter.city){
                 mapService.setRegion($scope.filter.city);
+            } else {
+                mapService.unsetRegion();
             }
         }
 

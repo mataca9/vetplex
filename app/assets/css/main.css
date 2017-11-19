@@ -91,9 +91,23 @@ body {
     font-size:20px;
 }
 
+/*maps*/
 #map {
     height: 400px;
     width: 100%;
+}
+
+.page-rating{
+    font-size:11px;
+}
+
+.page-link {
+    font-size:11px;
+    color: #07C;
+}
+
+.page-text{
+    text-align: justify;
 }
 
 .profissional-list {

@@ -36,7 +36,8 @@
 		function saveGeneral() {
 			var updates = {
 				name: $scope.user.name,
-				email: $scope.user.email
+				email: $scope.user.email,
+				doc: $scope.user.doc
 			};
 
 			userService.updateUser($scope.user.id, updates).then(function(){

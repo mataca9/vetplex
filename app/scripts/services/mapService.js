@@ -11,6 +11,7 @@
         self.geocoder;
         self.markers = [];
         self.places = [];
+        self.defaultLocation;
         
         //methods
         self.init = init;
@@ -18,30 +19,39 @@
         self.addMarkers = addMarkers;
         self.setRegion = setRegion;
         self.setPlaces = setPlaces;
+        self.unsetRegion = unsetRegion;
 
         //-- Functions
         function init(ready) {
             self.map = new google.maps.Geocoder();
             self.geocoder = new google.maps.Geocoder();
             self.map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4
+                zoom: 3
             });
 
             self.geocoder.geocode( {'address' : 'brazil'}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
-                    self.map.setCenter(results[0].geometry.location);
+                    self.defaultLocation = results[0].geometry.location;
+                    self.map.setCenter(self.defaultLocation);
                     if(ready) ready();
                 }
             });
         }
 
-        function setRegion(region){
+        function setRegion(region, withoutZoom){
             self.geocoder.geocode( {'address' : region}, function(results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     self.map.setCenter(results[0].geometry.location);
-                    self.map.setZoom(12);
+                    if(!withoutZoom){
+                        self.map.setZoom(11);
+                    }
                 }
             });
+        }
+
+        function unsetRegion() {
+            self.map.setCenter(self.defaultLocation);
+            self.map.setZoom(3);
         }
 
         function setPlaces(places){
@@ -65,10 +75,11 @@
                                 ${p.name}
                             </h1>
                             <div id="bodyContent">
-                                <p>
+                                <p class="page-text">
                                     ${p.professional.about}
                                 </p>
-                                <p>Rating: ${p.rating || 0}</p>
+                                <span class="page-rating">Rating: ${p.rating || 0}</span>
+                                <a class="page-link pull-right" href="#!/page/${p.id}">Visitar página</a>
                             </div>
                         </div>`;
 

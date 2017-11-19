@@ -22,7 +22,7 @@
                                 <div ng-show="register.type" class="form-group" ng-class="{'error': registerForm.doc.$invalid && registerForm.doc.$dirty}">
                                     <label ng-show="register.type == 'user'">CPF:</label>
                                     <label ng-show="register.type == 'professional'">CNPJ:</label>
-                                    <input type="text" class="form-control" ng-model="register.doc" name="doc" required />
+                                    <input type="text" class="form-control" ui-mask="{{register.type == 'user' ? '999.999.999-99' : '99.999.999/9999-99'}}" ng-model="register.doc" name="doc" required />
                                 </div>
                                 <div class="form-group" ng-class="{'error': registerForm.email.$invalid && registerForm.email.$dirty}">
                                     <label>Email:</label>

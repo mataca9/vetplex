@@ -5,16 +5,12 @@
     var _templateBase = './scripts';
 
     angular.module('app')
-    .config(['$stateProvider', '$urlRouterProvider', route]);
+    .config(['$locationProvider', '$stateProvider', '$urlRouterProvider', route]);
 
-    function route($stateProvider, $urlRouterProvider) {
-        // $locationProvider.html5Mode({
-        //     enabled: true,
-        //     requireBase: false
-        // });
+    function route( $locationProvider, $stateProvider, $urlRouterProvider) {
 
-        $urlRouterProvider.otherwise('/');
-        
+        //$locationProvider.html5Mode(true);
+        $urlRouterProvider.otherwise('/');        
         $stateProvider
 
         .state('home', {
