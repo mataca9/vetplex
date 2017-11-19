@@ -78,8 +78,7 @@
                                 <p class="page-text">
                                     ${p.professional.about}
                                 </p>
-                                <span class="page-rating">Rating: ${p.rating || 0}</span>
-                                <a class="page-link pull-right" href="#!/page/${p.id}">Visitar página</a>
+                                <a class="page-link" href="#!/page/${p.id}">Visitar página</a>
                             </div>
                         </div>`;
 
