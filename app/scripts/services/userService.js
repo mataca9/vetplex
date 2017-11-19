@@ -7,7 +7,9 @@
     function UserService(firebase, $filter){
 
         var self = this;
-        firebase.init();
+        if(!firebase.running){
+            firebase.init();
+        }
 
         //-- Public
         self.createUser = createUser;
@@ -20,7 +22,7 @@
         
         //-- Methods
         function createUser(user){
-            let password = $filter('hashFilter')(user.password);
+            let password = $filter('hash')(user.password);
             let newUser = JSON.parse(JSON.stringify(user));
             delete newUser.password2;
             newUser.password = password;
@@ -79,20 +81,6 @@
 
             recursiveUpdate(null, fields, '');
             return firebase.database.ref().update(updates);
-        }
-
-        function hash(s) {
-            var a = 1, c = 0, h, o;
-            if (s) {
-                a = 0;
-                for (h = s.length - 1; h >= 0; h--) {
-                    o = s.charCodeAt(h);
-                    a = (a<<6&268435455) + o + (o<<14);
-                    c = a & 266338304;
-                    a = c!==0?a^c>>21:a;
-                }
-            }
-            return String(a);
         }
     }
 })();

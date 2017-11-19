@@ -2,7 +2,7 @@
     'use strict';
     
     angular.module('app')
-    .filter('hashFilter', [HashFilter]);
+    .filter('hash', [HashFilter]);
     
     function HashFilter(){
         return function(s) {

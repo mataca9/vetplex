@@ -15,10 +15,10 @@
 
         // -- private functions
         function init () {
-            userService.getProfessionals().then(function(snapshop){
+            userService.getProfessionals().then(function(snapshot){
                 let professionals = [];
-                for(let key in snapshop.val()){
-                    let professional = snapshop.val()[key];
+                for(let key in snapshot.val()){
+                    let professional = snapshot.val()[key];
                     professional.id = key;
                     professionals.push(professional);
                 }

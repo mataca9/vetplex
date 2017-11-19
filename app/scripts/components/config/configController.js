@@ -49,7 +49,7 @@
 
 		function savePassword() {
 			var updates = {
-				password: $filter('hashFilter')($scope.user.password)
+				password: $filter('hash')($scope.user.password)
 			};
 
 			userService.updateUser($scope.user.id, updates).then(function(){

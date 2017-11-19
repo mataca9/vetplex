@@ -16,8 +16,6 @@
         };        
         $scope.rating = [0,0,0,0,0];
 
-        $scope.translateService = translateService;
-
         //-- Methods
         function init() {
             userService.getUser($stateParams.id).then(function(snapshot){
@@ -37,16 +35,6 @@
             mapService.addMarkers();
             if($scope.user.professional.city){
                 mapService.setRegion($scope.user.professional.address);
-            }
-        }
-
-        function translateService(service){
-            switch(service){
-                case 'clinic': return 'Atendimento clínico';
-                case 'shear': return 'Tosa';
-                case 'surgery': return 'Procedimentos cirurgicos';
-                case 'wash': return 'Banho';
-                case 'sell': return 'Varejo';
             }
         }
 

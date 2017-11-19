@@ -2,7 +2,7 @@
 
 <h2>
     Lista de agendamentos
-    <button ng-if="session.type == 'user'" class="btn btn-primary pull-right" data-toggle="modal" data-target="#myModal">
+    <button ng-if="session.type == 'user'" ng-click="clearModal();" class="btn btn-primary pull-right" data-toggle="modal" data-target="#newAppointment">
         Novo
         <span class="glyphicon glyphicon-plus"></span>
     </button>
@@ -32,6 +32,7 @@
                 </div>
             </div>
         </li>
+        <li class="list-group-item text-center" ng-if="!(scheduleList | limitTo:limitFilter).length">Nenhum agendamento encontrado</li>
     </ul>
 </div>
 
@@ -60,10 +61,11 @@
                 </div>
             </div>
         </li>
+        <li class="list-group-item text-center" ng-if="!(scheduleList | filter:{status:statusFilter}).length">Nenhum agendamento encontrado</li>
     </ul>
 </div>
 
-<div id="myModal" class="modal fade" role="dialog">
+<div id="newAppointment" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->
@@ -82,10 +84,48 @@
                     Veterinário
                 </div>
             </div>
+            <br/>
+            <div ng-show="modalSelect">
+                <form name="appointmentForm" class="form">
+                    <div class="col-md-12">
+                        <div class="form-group" ng-class="{'error': appointmentForm.city.$invalid && appointmentForm.city.$dirty}">
+                            <label>Cidade:</label>
+                            <select class="form-control" ng-model="newAppointment.city" name="city" required>
+                                <option value="porto alegre">Porto Alegre</option>
+                                <option value="sao paulo">São Paulo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div ng-show="newAppointment.city" class="form-group" ng-class="{'error': appointmentForm.professional.$invalid && appointmentForm.professional.$dirty}">
+                            <label>Profissional:</label>
+                            <select class="form-control" ng-model="newAppointment.professional" name="professional" required>
+                                <option ng-repeat="professional in professionals | filter:{professional:{city:newAppointment.city},availableServices:{type:modalSelect}}" ng-value="professional" ng-bind="professional.name"></option>
+                            </select>
+                        </div>
+                        <div ng-show="newAppointment.professional && newAppointment.service" class="form-group" ng-class="{'error': appointmentForm.date.$invalid && appointmentForm.date.$dirty}">
+                            <label>Data:</label>
+                            <input type="date" min="{{ minDate }}" class="form-control" ng-model="newAppointment.date" name="date" required />
+                        </div>                        
+                    </div>
+                    <div class="col-md-6">
+                        <div ng-show="newAppointment.professional" class="form-group" ng-class="{'error': appointmentForm.professional.$invalid && appointmentForm.professional.$dirty}">
+                            <label>Serviço:</label>
+                            <select class="form-control" ng-model="newAppointment.service" name="service" required>
+                                <option ng-repeat="service in newAppointment.professional.availableServices | filter:{type:modalSelect}" ng-value="service" ng-bind="service.name"></option>
+                            </select>
+                        </div>
+                        <div ng-if="newAppointment.date" ng-show="newAppointment.professional && newAppointment.service" class="form-group" ng-class="{'error': appointmentForm.hour.$invalid && appointmentForm.hour.$dirty}">
+                            <label>Horário:</label>
+                            <input type="time" class="form-control" min="08:30" max="18:00" ng-model="newAppointment.hour" name="hour" required />
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modalSelect=null">Fechar</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Agendar</button>
+        <div class="modal-footer clearfix ">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            <button ng-disabled="appointmentForm.$invalid" type="button" class="btn btn-primary" data-dismiss="modal">Agendar</button>
         </div>
         </div>
 

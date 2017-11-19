@@ -12,7 +12,7 @@
          */ 
 
         var self = this;
-        
+        self.running = false;
         //methods
         self.init = init;
 
@@ -26,7 +26,8 @@
                 storageBucket: "vetplex-bfea3.appspot.com",
                 messagingSenderId: "313105455552"
             };
-            
+
+            self.running = true;
             self.app = firebase.initializeApp(config);
             self.database = self.app.database();        
         };

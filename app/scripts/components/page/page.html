@@ -21,7 +21,7 @@
             <div class="panel-body">
                 <span ng-show="!user.professional.service" ng-bind="default.noinfo"></span>
                 <ul ng-show="user.professional.service" class="list-group list-even-odd">
-                    <li ng-show="value" ng-repeat="(service, value) in user.professional.service" class="list-group-item" ng-bind="translateService(service)"></li>
+                    <li ng-if="value" ng-repeat="(service, value) in user.professional.service" class="list-group-item" ng-bind="service | translate"></li>
                 </ul>
             </div>
         </div>
