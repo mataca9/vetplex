@@ -3,7 +3,7 @@
     'use strict';
 
     angular.module('app')    
-    .directive('ngEnter', ngEnter);
+    .directive('ngOnEnter', ngEnter);
 
     function ngEnter() {
         return function (scope, element, attrs) {

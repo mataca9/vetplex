@@ -5,98 +5,26 @@
 
         
     function ScheduleController($scope, $rootScope, toastr, $timeout, $filter, userService, scheduleService) {
-        $scope.limitFilter = 2;
+        $scope.limitFilter = 5;
+        $scope.rateScore = 0;
         $scope.statusFilter = '';
         $scope.modalSelect = null;
         $scope.scheduleList = [];
         $scope.professionals = [];
+        $scope.professional = {};
         $scope.newAppointment = {};
         $scope.minDate = new Date().toJSON().split('T')[0]//.split('-').reverse().join('-');
         $scope.labelStatus = labelStatus;
-        $scope.changeStatus = changeStatus;
         $scope.setAvailableServices = setAvailableServices;
         $scope.clearModal = clearModal;
-        // Mock
-        /*
-        if ($rootScope.session.type == 'user'){
-            $scope.scheduleList = [
-                {
-                    service: 'Tosa',
-                    professional: ' Alfredo',
-                    client: 'Roger',
-                    date: '10/11/2017 10:30',
-                    place: 'Av. Ipiranga, 7200',
-                    status: 'Pendente'
-                },
-                {
-                    service: 'Castração',
-                    professional: ' Rosana',
-                    cliente: 'Frank',
-                    date: '12/11/2017 09:30',
-                    place: 'Av. Protasio alves, 2350',
-                    status: 'Aprovado'
-                },
-                {
-                    service: 'Castração',
-                    professional: ' Rosana',
-                    cliente: 'Bob',
-                    date: '12/11/2017 09:30',
-                    place: 'Av. Protasio alves, 2350',
-                    status: 'Rejeitado'
-                },
-                {
-                    service: 'Castração',
-                    professional: ' Rosana',
-                    cliente: 'Aroldo',
-                    date: '12/11/2017 09:30',
-                    place: 'Av. Protasio alves, 2350',
-                    status: 'Concluído'
-                }
-            ];
-        } else {
-            $scope.scheduleList = [
-                {
-                    service: 'Tosa',
-                    professional: ' Alfredo',
-                    cliente: 'Roger',
-                    date: '10/11/2017 10:30',
-                    place: 'Av. Ipiranga, 7200',
-                    status: 'Pendente'
-                },
-                {
-                    service: 'Castração',
-                    professional: ' Rosana',
-                    cliente: 'Frank',
-                    date: '12/11/2017 09:30',
-                    place: 'Av. Protasio alves, 2350',
-                    status: 'Aprovado'
-                },
-                {
-                    service: 'Castração',
-                    professional: ' Rosana',
-                    cliente: 'Bob',
-                    date: '12/11/2017 09:30',
-                    place: 'Av. Protasio alves, 2350',
-                    status: 'Rejeitado'
-                },
-                {
-                    service: 'Castração',
-                    professional: ' Rosana',
-                    cliente: 'Aroldo',
-                    date: '12/11/2017 09:30',
-                    place: 'Av. Protasio alves, 2350',
-                    status: 'Concluído'
-                }
-            ];
-        }*/
+        $scope.addAppointment = addAppointment;
+        $scope.changeStatus = changeStatus;
+        $scope.rateAppointment = rateAppointment;
 
         // private functions
         function init() {
+            getAppointments($rootScope.session.type, $rootScope.session.id);
             if ($rootScope.session.type == 'user'){
-                scheduleService.getAppointments('user', $rootScope.session.id).then(function(snapshot){
-
-                });
-
                 userService.getProfessionals().then(function(snapshot){
                     let professionals = [];
                     for(let key in snapshot.val()){
@@ -107,29 +35,43 @@
                     $scope.professionals = professionals.filter(p => p.professional && p.professional.visible);
                     $scope.professionals.forEach(function(p){
                         setAvailableServices(p);
-                    })
+                    });
                 });
             } else {
-
+                userService.getUser($rootScope.session.id).then(function(snapshot){
+                    $scope.professional = snapshot.val();
+                })
             }
+        }
+
+        function getAppointments(type, id){
+            scheduleService.getAppointments(type, id).then(function(snapshot){
+                let appointments = [];
+                for(let key in snapshot.val()){
+                    let appointment = snapshot.val()[key];
+                    appointment.id = key;
+                    appointments.push(appointment);
+                }
+
+                $scope.scheduleList = appointments;
+
+                $scope.$apply();
+            });
         }
 
         function labelStatus(status){
             switch(status){
-                case 'Aprovado':
-                    return 'label-success';
-                case 'Pendente':
+                case 1:
+                case 3:
                     return 'label-warning';
-                case 'Rejeitado':
+                case 2:
+                    return 'label-success';
+                case 5:
                     return 'label-danger';
-                case 'Concluído':
+                case 4:
                 default:
                     return 'label-default';
             }
-        }
-
-        function changeStatus(schedule, status){
-            schedule.status = status;
         }
 
         function setAvailableServices(professional) {
@@ -168,9 +110,44 @@
             $scope.appointmentForm.$setPristine();
         }
 
-        $scope.new = function (size, parentSelector) {
-            
+        function addAppointment() {
+            let appointment = {
+                user: $rootScope.session.id,
+                clientName: $rootScope.session.name,
+                professionalName: $scope.newAppointment.professional.name,
+                professional: $scope.newAppointment.professional.id,
+                date: $filter('date')($scope.newAppointment.date, 'dd/MM/yyyy'),
+                time: $filter('date')($scope.newAppointment.time, 'HH:mm'),
+                service: $scope.newAppointment.service.key,
+                status: 1
+            }
+
+            scheduleService.createAppointment(appointment).then(function(){
+                toastr.success('Agendamento criado com sucesso, aguade avaliação do profissional.');
+                getAppointments($rootScope.session.type, $rootScope.session.id);
+            });
         };
+
+        function changeStatus(id, status, rating){
+            var updates = {
+				status: status
+            };
+            
+            if(rating){
+                updates.rating = rating;
+            }
+
+			scheduleService.updateAppointment(id, updates).then(function(){
+                toastr.success("Dados salvos com sucesso!");
+                getAppointments($rootScope.session.type, $rootScope.session.id);
+			}, function(){
+				toastr.error("Ocorreu um erro!");
+			});
+        }
+
+        function rateAppointment(id, rating){
+            changeStatus(id, 6, rating);
+        }
 
         init();
         

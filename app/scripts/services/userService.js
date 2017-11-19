@@ -43,7 +43,7 @@
 
         function getUserLogin(email, password) {
             return  new Promise(function (resolve, reject) {
-                firebase.database.ref('/users/').orderByChild('password').equalTo(hash(password)).once("value").then(function(snapshot){
+                firebase.database.ref('/users/').orderByChild('password').equalTo($filter('hash')(password)).once("value").then(function(snapshot){
                     if(snapshot.val()){
                         let users = snapshot.val();
                         let user = Object.keys(users).map(function(k){

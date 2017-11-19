@@ -10,25 +10,46 @@
 <hr/>
 <div ng-if="session.type == 'user'">
     <ul class="nav nav-tabs">
-        <li ng-click="limitFilter=2" class="active"><a data-toggle="tab">Recentes</a></li>
-        <li ng-click="limitFilter=10"><a data-toggle="tab">Histórico</a></li>
+        <li ng-click="limitFilter=5" class="active"><a data-toggle="tab">Recentes</a></li>
+        <li ng-click="limitFilter=''"><a data-toggle="tab">Histórico</a></li>
     </ul>
     <br/>
     <ul class="list-group appointments">
-        <li class="list-group-item" ng-repeat="schedule in scheduleList | limitTo:limitFilter">
-            <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="schedule.status"></span>
-            Serviço: <span class="info" ng-bind="schedule.service"></span>
-            Com: <span class="info" ng-bind="schedule.professional"></span>
-            Dia: <span class="info" ng-bind="schedule.date"></span>
-            Onde: <span class="info" ng-bind="schedule.place"></span>
+        <li class="list-group-item" ng-repeat="schedule in scheduleList | orderBy:['status', 'date'] | limitTo:limitFilter">
+            <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="('status_' + schedule.status) | translate"></span>
+            <div class="holder-info">
+                <div class="holder-info-flex">
+                    <span class="info" ng-bind="schedule.service | translate"></span>
+                    <a class="info" href="#!/page/{{schedule.professional}}" ng-bind="schedule.professionalName"></a>
+                    <span class="info">
+                        <span ng-bind="schedule.date"></span> às <span ng-bind="schedule.time"></span>
+                    </span>
+                </div>
+            </div>
             <div class="tools">
-                <div ng-if="schedule.status!='Rejeitado'" class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Ações
+                <div ng-if="schedule.status < 4" class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" ng-click="rateScore=0" type="button" data-toggle="dropdown">Ações
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li ng-if="schedule.status!='Concluído'"><a href="#">Cancelar agendamento</a></li>
-                        <li ng-if="schedule.status=='Concluído'"><a href="#">Avaliar</a></li>
+                        <li ng-if="schedule.status==1 || schedule.status==2"><a ng-click="changeStatus(schedule.id, 4); $event.preventDefault();" href="#">Cancelar agendamento</a></li>
+                        <li ng-if="schedule.status==3" class="dropdown-header">Avaliar</li>
+                        <li ng-if="schedule.status==3" class="rateService">
+                            <a ng-click="$event.preventDefault()" href="#">
+                                <span ng-click="rateAppointment(schedule.id, rateScore)" ng-mouseover="rateScore = 1" class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': rateScore == 0 }"></span>
+                                <span ng-click="rateAppointment(schedule.id, rateScore)" ng-mouseover="rateScore = 2" class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': rateScore < 2 }"></span>
+                                <span ng-click="rateAppointment(schedule.id, rateScore)" ng-mouseover="rateScore = 3" class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': rateScore < 3 }"></span>
+                                <span ng-click="rateAppointment(schedule.id, rateScore)" ng-mouseover="rateScore = 4" class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': rateScore < 4 }"></span>
+                                <span ng-click="rateAppointment(schedule.id, rateScore)" ng-mouseover="rateScore = 5" class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': rateScore < 5 }"></span>
+                            </a>
+                        </li>
                     </ul>
+                </div>
+                <div class="scheduleRating" ng-if="schedule.rating">
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating == 0 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 2 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 3 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 4 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 5 }"></span>
                 </div>
             </div>
         </li>
@@ -38,26 +59,40 @@
 
 <div ng-if="session.type == 'professional'">
     <ul class="nav nav-tabs">
-        <li ng-click="statusFilter=''" class="active"><a data-toggle="tab">Recentes</a></li>
-        <li ng-click="statusFilter='Pendente'"><a data-toggle="tab">Pendentes</a></li>
-        <li ng-click="statusFilter='Aprovado'"><a data-toggle="tab">Aprovados</a></li>
+        <li ng-click="statusFilter=''; limitFilter=5" class="active"><a data-toggle="tab">Recentes</a></li>
+        <li ng-click="statusFilter=1"><a data-toggle="tab">Pendentes</a></li>
+        <li ng-click="statusFilter=2"><a data-toggle="tab">Aprovados</a></li>
+        <li ng-click="statusFilter=''; limitFilter=''"><a data-toggle="tab">Todos</a></li>
     </ul>
     <br/>
     <ul class="list-group appointments">
-        <li class="list-group-item" ng-repeat="schedule in scheduleList | filter:{status:statusFilter}">
-            <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="schedule.status"></span>
-            Serviço: <span class="info" ng-bind="schedule.service"></span>
-            Cliente: <span class="info" ng-bind="schedule.professional"></span>
-            Dia: <span class="info" ng-bind="schedule.date"></span>
+        <li class="list-group-item" ng-repeat="schedule in scheduleList | filter:{status:statusFilter} | orderBy:['status', 'date'] | limitTo:limitFilter">
+            <span class="label" ng-class="labelStatus(schedule.status)" ng-bind="('status_' + schedule.status) | translate"></span>
+            <div class="holder-info">
+                <div class="holder-info-flex">
+                    <span class="info" ng-bind="schedule.service | translate"></span>
+                    <span class="info" ng-bind="schedule.clientName"></span>
+                    <span class="info">
+                        <span ng-bind="schedule.date"></span> às <span ng-bind="schedule.time"></span>
+                    </span>
+                </div>
+            </div>
             <div class="tools">
-                <div ng-if="schedule.status=='Pendente' || schedule.status=='Aprovado'" class="dropdown">
+                <div ng-if="schedule.status < 3" class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Ações
                     <span class="caret"></span></button>
                     <ul class="dropdown-menu dropdown-menu-right">
-                        <li ng-click="changeStatus(schedule, 'Aprovado')" ng-if="schedule.status=='Pendente'"><a href="#">Aceitar</a></li>
-                        <li ng-click="changeStatus(schedule, 'Rejeitado')" ng-if="schedule.status=='Pendente'"><a href="#">Rejeitar</a></li>
-                        <li ng-click="changeStatus(schedule, 'Concluído')" ng-if="schedule.status=='Aprovado'"><a href="#">Concluir</a></li>
+                        <li ng-if="schedule.status==1"><a ng-click="changeStatus(schedule.id, 2); $event.preventDefault();" href="#">Aceitar</a></li>
+                        <li ng-if="schedule.status==1"><a ng-click="changeStatus(schedule.id, 5); $event.preventDefault();" href="#">Rejeitar</a></li>
+                        <li ng-if="schedule.status==2"><a ng-click="changeStatus(schedule.id, 3); $event.preventDefault();" href="#">Colocar em avaliação</a></li>
                     </ul>
+                </div>
+                <div class="scheduleRating" ng-if="schedule.rating">
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating == 0 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 2 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 3 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 4 }"></span>
+                    <span class="glyphicon glyphicon-star rating-star" ng-class="{'unrated': schedule.rating < 5 }"></span>
                 </div>
             </div>
         </li>
@@ -75,8 +110,8 @@
             <h4 class="modal-title">Novo agendamento</h4>
         </div>
         <div class="modal-body">
-            <h4>Selecione o tipo de serviço desejado:</h4>
-            <div class="modal-service">
+            <h4 class="col-md-12">Selecione o tipo de serviço desejado:</h4>
+            <div class="modal-service clearfix">
                 <div class="modal-service-select pet" ng-class="{'selected':modalSelect=='pet'}" ng-click="modalSelect='pet'">
                     Estético
                 </div>
@@ -88,7 +123,7 @@
             <div ng-show="modalSelect">
                 <form name="appointmentForm" class="form">
                     <div class="col-md-12">
-                        <div class="form-group" ng-class="{'error': appointmentForm.city.$invalid && appointmentForm.city.$dirty}">
+                        <div class="form-group slide" ng-class="{'error': appointmentForm.city.$invalid && appointmentForm.city.$dirty}">
                             <label>Cidade:</label>
                             <select class="form-control" ng-model="newAppointment.city" name="city" required>
                                 <option value="porto alegre">Porto Alegre</option>
@@ -97,27 +132,27 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <div ng-show="newAppointment.city" class="form-group" ng-class="{'error': appointmentForm.professional.$invalid && appointmentForm.professional.$dirty}">
+                        <div ng-show="newAppointment.city" class="form-group slide" ng-class="{'error': appointmentForm.professional.$invalid && appointmentForm.professional.$dirty}">
                             <label>Profissional:</label>
                             <select class="form-control" ng-model="newAppointment.professional" name="professional" required>
                                 <option ng-repeat="professional in professionals | filter:{professional:{city:newAppointment.city},availableServices:{type:modalSelect}}" ng-value="professional" ng-bind="professional.name"></option>
                             </select>
                         </div>
-                        <div ng-show="newAppointment.professional && newAppointment.service" class="form-group" ng-class="{'error': appointmentForm.date.$invalid && appointmentForm.date.$dirty}">
+                        <div ng-show="newAppointment.professional && newAppointment.service" class="form-group slide" ng-class="{'error': appointmentForm.date.$invalid && appointmentForm.date.$dirty}">
                             <label>Data:</label>
                             <input type="date" min="{{ minDate }}" class="form-control" ng-model="newAppointment.date" name="date" required />
                         </div>                        
                     </div>
                     <div class="col-md-6">
-                        <div ng-show="newAppointment.professional" class="form-group" ng-class="{'error': appointmentForm.professional.$invalid && appointmentForm.professional.$dirty}">
+                        <div ng-show="newAppointment.professional" class="form-group slide" ng-class="{'error': appointmentForm.service.$invalid && appointmentForm.service.$dirty}">
                             <label>Serviço:</label>
                             <select class="form-control" ng-model="newAppointment.service" name="service" required>
                                 <option ng-repeat="service in newAppointment.professional.availableServices | filter:{type:modalSelect}" ng-value="service" ng-bind="service.name"></option>
                             </select>
                         </div>
-                        <div ng-if="newAppointment.date" ng-show="newAppointment.professional && newAppointment.service" class="form-group" ng-class="{'error': appointmentForm.hour.$invalid && appointmentForm.hour.$dirty}">
+                        <div ng-if="newAppointment.date" ng-show="newAppointment.professional && newAppointment.service" class="form-group slide" ng-class="{'error': appointmentForm.time.$invalid && appointmentForm.time.$dirty}">
                             <label>Horário:</label>
-                            <input type="time" class="form-control" min="08:30" max="18:00" ng-model="newAppointment.hour" name="hour" required />
+                            <input type="time" class="form-control" min="08:30" max="18:00" ng-model="newAppointment.time" name="time" required />
                         </div>
                     </div>
                 </form>
@@ -125,7 +160,7 @@
         </div>
         <div class="modal-footer clearfix ">
             <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
-            <button ng-disabled="appointmentForm.$invalid" type="button" class="btn btn-primary" data-dismiss="modal">Agendar</button>
+            <button ng-disabled="appointmentForm.$invalid" type="button" class="btn btn-primary" ng-click="addAppointment()" data-dismiss="modal">Agendar</button>
         </div>
         </div>
 

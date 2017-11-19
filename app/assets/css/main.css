@@ -142,10 +142,25 @@ body {
     line-height: 40px;
 }
 
+.list-group.appointments li.list-group-item .holder-info{
+    display: inline-block;
+    width:850px;
+}
+
+.list-group.appointments li.list-group-item .holder-info-flex{
+    display: flex;
+    justify-content: space-around;
+}
+
 .list-group.appointments li.list-group-item span.info{
     display:inline-block;
-    min-width:120px;
-    margin-left:10px;
+    min-width:250px;
+    text-align: center;
+}
+
+.list-group.appointments li.list-group-item span.info:first-child{
+    text-align:left;
+    margin-left:20px;
 }
 
 .list-group.appointments li.list-group-item span.label{
@@ -205,6 +220,14 @@ body {
     background-image:url(../image/pet.png);
 }
 
+.rateService{
+    text-align: center;
+}
+
+.rateService .glyphicon{
+    font-size:20px;
+}
+
 /*page*/
 .rating-number{
     font-size:32px;
@@ -220,6 +243,10 @@ body {
 
 .rating-star.unrated{
     color:#ccc;
+}
+
+.scheduleRating{
+    display: inline-block;
 }
 
 .list-even-odd li:nth-child(even){
@@ -309,3 +336,17 @@ body {
     left: 20px;
 }
 /* -- material switch end */
+
+.slide{
+    transform-origin: 50% 0%;
+    animation: slideDown 0.3s ease 1;
+}
+
+@keyframes slideDown {
+    from {
+        transform:scaleY(0);
+    }
+    to {
+        transform:scaleY(1);
+    }
+}
