@@ -12,17 +12,17 @@
                         <label for="sel1">Serviço:</label>
                         <select class="form-control" ng-model="filter.service" ng-change="loadMap()" id="sel1">
                             <option ng-value="0" selected>Selecione</option>
-                            <option ng-value="wash">Banho</option>
-                            <option ng-value="shear">Tosa</option>
-                            <option ng-value="clinic">Atendimento clínico</option>
-                            <option ng-value="surgery">Procedimentos cirurgicos</option>
-                            <option ng-value="sell">Varejo</option>
+                            <option ng-value="'wash'">Banho</option>
+                            <option ng-value="'shear'">Tosa</option>
+                            <option ng-value="'clinic'">Atendimento clínico</option>
+                            <option ng-value="'surgery'">Procedimentos cirurgicos</option>
+                            <option ng-value="'sell'">Varejo</option>
                         </select>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="form-group">
-                        <label for="sel1">Cidade:</label>
+                        <label for="sel2">Cidade:</label>
                         <select class="form-control" ng-model="filter.city" ng-change="loadMap()" id="sel2">
                             <option ng-value="0" selected>Selecione</option>
                             <option ng-value="'porto alegre'">Porto Alegre</option>
@@ -50,8 +50,8 @@
                                     Nenhum profissional encontrado.
                                 </li>
                             </ul>
-                        </div>                    
-                    </div>                    
+                        </div>
+                    </div>
                 </div>
             </div>
         </li>

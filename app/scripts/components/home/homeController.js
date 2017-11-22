@@ -3,10 +3,10 @@
     angular.module('app')
         .controller('homeController', ['$scope', '$rootScope', 'toastr', '$timeout', 'mapService', 'userService', HomeController]);
 
-        
+
     function HomeController($scope, $rootScope, toastr, $timeout, mapService, userService) {
         $scope.professionals = [];
-        //{ name: 'Zoo Life', address: 'Protasio Alves, 2000', rating: 2, service:1, region:"leste"}             
+        //{ name: 'Zoo Life', address: 'Protasio Alves, 2000', rating: 2, service:1, region:"leste"}
         $scope.loadMap = loadMap;
         $scope.filter = {
             service: 0,
@@ -32,20 +32,21 @@
         }
 
         function loadMap(){
-            $scope.filtered = [];                               
+
+            $scope.filtered = [];
             $scope.professionals.forEach(function(place){
                 let add = true;
 
-                if(($scope.filter.city && $scope.filter.city != place.professional.city) ||
-                    ($scope.filter.service && !place.professional.service[$scope.filter.service])
+                if(($scope.filter.city != place.professional.city) ||
+                    (!place.professional.service[$scope.filter.service])
                 ){
                     add = false;
                 }
 
                 if(add){
-                    $scope.filtered.push(place);                    
+                    $scope.filtered.push(place);
                 }
-            });            
+            });
             mapService.setPlaces($scope.filtered);
             mapService.clearMarkers();
             mapService.addMarkers();
