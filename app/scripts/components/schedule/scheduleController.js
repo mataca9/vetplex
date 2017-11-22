@@ -3,8 +3,11 @@
     angular.module('app')
         .controller('scheduleController', ['$scope', '$rootScope', 'toastr', '$timeout', '$filter', 'userService', 'scheduleService', ScheduleController]);
 
-        
+
     function ScheduleController($scope, $rootScope, toastr, $timeout, $filter, userService, scheduleService) {
+
+      var date = new Date();
+
         $scope.limitFilter = 5;
         $scope.rateScore = 0;
         $scope.statusFilter = '';
@@ -13,13 +16,21 @@
         $scope.professionals = [];
         $scope.professional = {};
         $scope.newAppointment = {};
-        $scope.minDate = new Date().toJSON().split('T')[0]//.split('-').reverse().join('-');
+        $scope.minDate = date.toJSON().split('T')[0]//.split('-').reverse().join('-');
+        $scope.minTime = ("0" + date.getHours()).slice(-2) + ":" + ("0" + date.getMinutes()).slice(-2);
         $scope.labelStatus = labelStatus;
         $scope.setAvailableServices = setAvailableServices;
         $scope.clearModal = clearModal;
         $scope.addAppointment = addAppointment;
         $scope.changeStatus = changeStatus;
         $scope.rateAppointment = rateAppointment;
+
+        //Sets minDate to tomorrow if time's past 18h
+        if (date.getHours() > 18) {
+          date.setDate(date.getDate() + 1);
+          $scope.minDate = date.toJSON().split('T')[0];
+          $scope.minTime = "08:00";
+        }
 
         // private functions
         function init() {
@@ -132,7 +143,7 @@
             var updates = {
 				status: status
             };
-            
+
             if(rating){
                 updates.rating = rating;
             }
@@ -150,7 +161,7 @@
         }
 
         init();
-        
+
     }
 
 })();

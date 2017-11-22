@@ -141,7 +141,7 @@
                         <div ng-show="newAppointment.professional && newAppointment.service" class="form-group slide" ng-class="{'error': appointmentForm.date.$invalid && appointmentForm.date.$dirty}">
                             <label>Data:</label>
                             <input type="date" min="{{ minDate }}" class="form-control" ng-model="newAppointment.date" name="date" required />
-                        </div>                        
+                        </div>
                     </div>
                     <div class="col-md-6">
                         <div ng-show="newAppointment.professional" class="form-group slide" ng-class="{'error': appointmentForm.service.$invalid && appointmentForm.service.$dirty}">
@@ -152,7 +152,7 @@
                         </div>
                         <div ng-if="newAppointment.date" ng-show="newAppointment.professional && newAppointment.service" class="form-group slide" ng-class="{'error': appointmentForm.time.$invalid && appointmentForm.time.$dirty}">
                             <label>Horário:</label>
-                            <input type="time" class="form-control" min="08:30" max="18:00" ng-model="newAppointment.time" name="time" required />
+                            <input type="time" class="form-control" min="{{ minTime }}" max="18:00" ng-model="newAppointment.time" name="time" required />
                         </div>
                     </div>
                 </form>
