@@ -17,17 +17,18 @@ url: ```http://localhost:8080/app```
 ## Estrutura de arquivos
 
 ``` 
-App
+app
 ├── assets
 ├── scripts
 │   ├── components
-│   |   ├── example
-│   |   |   ├── example.html
-│   |   |   └── exampleController.js
-|   |   ...
-│   |   └── example2
+│   │   ├── example
+│   │   │   ├── example.html
+│   │   │   └── exampleController.js
+│   │   ...
+│   │   └── example2
 │   ├── directives
 │   ├── services
+│   ├── filters
 │   ├── app.constants.js
 │   ├── app.controller.js
 │   ├── app.js
